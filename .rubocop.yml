@@ -1,0 +1,86 @@
+# require: rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - 'node_modules/**/*'
+    - 'db/schema.rb'
+    - 'bin/*'
+    - 'db/migrate/*_init_schema.rb'
+
+Bundler:
+  Enabled: true
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/migrate/*'
+    - 'app/controllers/api_controller.rb'
+    - 'app/controllers/backoffice_controller.rb'
+    - 'app/controllers/concerns/import_employees_from_csv.rb'
+
+Metrics/LineLength:
+  Max: 100
+  IgnoreCopDirectives: true
+  Exclude:
+    - 'spec/controllers/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'db/migrate/*'
+    - 'app/controllers/api_controller.rb'
+    - 'app/controllers/backoffice_controller.rb'
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Layout/EndOfLine:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/routes/*'
+    - 'config/environments/*'
+    - 'lib/tasks/auto_annotate_models.rake'
+    - 'spec/**/*'
+
+RSpec/ImplicitSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 6
+
+RSpec/MultipleExpectations:
+  Max: 5
+  Exclude:
+    - 'spec/systems/**/*'
+    - 'spec/requests/**/*'
+    - 'spec/controllers/api/**/*'
+
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/systems/**/*'
+    - 'spec/controllers/api/**/*'
+
+RSpec/AnyInstance:
+  Exclude:
+    - 'spec/systems/**/*'
+    - 'spec/requests/**/*'
+    - 'spec/controllers/**/*'
+    - 'spec/services/**/*'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/systems/**/*'
+

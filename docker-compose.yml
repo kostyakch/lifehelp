@@ -1,0 +1,49 @@
+version: "3.2"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: covidhelp
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db/covidhelp_development
+      DATABASE_URL_TEST: postgresql://postgres:postgres@db/covidhelp_test
+      TZ: Europe/Moscow
+      REDIS_HOST: redis
+      RAILS_ENV: development
+
+    volumes:
+      - .:/usr/src/app
+      # - nfsmount:/usr/src/app
+      - ~/.ssh:/root/.ssh:cached
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+      - 3001:3000
+    # env_file:
+    #   - .env
+    tty: true
+    stdin_open: true
+    entrypoint: /usr/src/app/entrypoint.dev.sh
+    command: /usr/src/app/docker_command.sh
+
+  db:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./volumes/postgres/data:/var/lib/postgresql/data
+      - ./volumes/postgres/dump:/docker-entrypoint-initdb.d
+
+# volumes:
+#   nfsmount:
+#     driver: local
+#     driver_opts:
+#       type: nfs
+#       o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+#       device: ":${IDALIKA_API_SOURCE_DIR}"
