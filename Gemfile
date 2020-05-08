@@ -36,20 +36,14 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 ### AAA
 gem 'devise'
+gem 'dry-monads'
+gem 'dry-validation'
 # gem 'devise_invitable', '~> 2.0.0'
 # gem 'pundit'
 
 ### Tools
-# gem 'fcm'
+gem 'phonelib'
 gem 'figaro'
-# gem 'paper_trail'
-# gem 'jsonapi-rails'
-# gem 'ancestry'
-# gem 'active_data'
-# gem 'image_processing', '~> 1.2'
-# gem 'mini_magick'
-# gem 'geocoder'
-gem 'trailblazer'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -80,7 +74,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-sidekiq'
+  # gem 'rspec-sidekiq'
   gem 'rspec-retry'
 end
 
