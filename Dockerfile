@@ -19,4 +19,6 @@ RUN bundle install
 
 COPY . /usr/src/app
 
+ENV PATH="/usr/src/app/bin:${PATH}"
+
 EXPOSE 3000
