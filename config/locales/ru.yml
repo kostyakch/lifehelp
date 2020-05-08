@@ -29,6 +29,6 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
-  not_found: Not found
-  forbidden: Forbidden
+ru:
+  not_found: Запись не найдена
+  forbidden: Доступ запрещен

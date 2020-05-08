@@ -1,0 +1,20 @@
+ru:
+  activerecord:
+    models:
+      person: Персона
+    attributes:
+      person:
+        first_name: Имя
+        last_name: Фамилия
+        middle_name: Отчество
+        phone: Телефон
+        dob: Дата рождения
+        city: Город
+        address: Адрес
+        area: Район
+        description: Комментарий
+        code: Код заявки
+        objectivity: Объективность
+        marital_status: Материальный статус
+        social_status: Социальный статус
+        source: Источник данных
