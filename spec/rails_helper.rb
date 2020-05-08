@@ -8,16 +8,11 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'rspec/its'
-require 'rspec/retry'
-# require 'webmock/rspec'
+# require 'rspec/retry'
 
 Rails.application.routes.default_url_options[:host] = 'test'
 
-# require 'sidekiq/testing'
-RSpec::Sidekiq.configure do |config|
-  # config.warn_when_jobs_not_processed_by_sidekiq = false
-end
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -72,18 +67,15 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
 
   config.before(:suite) { WebMock.allow_net_connect! }
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers, type: :system
-  # config.include ActiveJob::TestHelper
-  # config.include TimeHelper
 
   # rspec-retry config goes here
-  config.default_retry_count = 1
-  config.verbose_retry = true
+  # config.default_retry_count = 1
+  # config.verbose_retry = true
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 end
