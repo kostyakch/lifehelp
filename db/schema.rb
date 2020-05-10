@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_090414) do
+ActiveRecord::Schema.define(version: 2020_05_10_095544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  create_table "client_services", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.uuid "service_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "started_at", null: false
+    t.datetime "finished_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_client_services_on_client_id"
+    t.index ["service_id"], name: "index_client_services_on_service_id"
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "first_name", null: false
@@ -36,4 +49,14 @@ ActiveRecord::Schema.define(version: 2020_05_10_090414) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "services", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "quantity"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "client_services", "clients"
+  add_foreign_key "client_services", "services"
 end

@@ -4,7 +4,7 @@ RSpec.describe Client::Operation::Update do
   subject { described_class.new.call(nil, args) }
 
   describe 'call' do
-    let(:client) { create(:client) }
+    let(:client) { create(:client, :with_service) }
     let(:first_name) { 'Super First' }
     let(:args) { { id: client.id, first_name: first_name, dob: 10.years.ago.to_s } }
 

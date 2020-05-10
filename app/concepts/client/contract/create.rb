@@ -6,11 +6,14 @@ module Client::Contract
 
       optional(:middle_name).value(:string)
       optional(:phone)
+      optional(:email)
       optional(:dob)
       optional(:city).value(:string)
       optional(:address).value(:string)
       optional(:area).value(:string)
       optional(:code).value(:string)
+
+      optional(:client_type).value(:string)
       optional(:objectivity).value(:string)
       optional(:marital_status).value(:string)
       optional(:social_status).value(:string)
@@ -18,6 +21,7 @@ module Client::Contract
     end
 
     rule(:phone).validate(:phone_format)
+    rule(:email).validate(:email_format)
     rule(:dob).validate(:date_format)
   end
 end

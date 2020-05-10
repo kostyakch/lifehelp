@@ -6,6 +6,12 @@ FactoryBot.define do
     city { Faker::Address.city }
     address { Faker::Address.street_address }
     sequence(:phone) { |n| format('7915%<number>07d', number: n) }
+
+    trait :with_service do
+      after(:create) do |client|
+        create(:client_service, client: client, service: create(:service))
+      end
+    end
   end
 end
 

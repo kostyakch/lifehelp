@@ -1,4 +1,7 @@
 class Client < ApplicationRecord
+  has_many :client_services
+  has_many :services, through: :client_services
+
   enum client_type: %i[person organization]
   enum code: %i[A B C D]
   enum objectivity: %i[is_not_clear objectively subjectively]
