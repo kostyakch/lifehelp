@@ -1,4 +1,4 @@
-module Person::Contract
+module Client::Contract
   class Create < ::Abstract::Contract
     params do
       required(:first_name).filled(:string)

@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Person::Operation::Create do
+RSpec.describe Client::Operation::Create do
   subject { described_class.new.call(nil, args) }
 
   describe 'call' do
-    let(:args) { attributes_for(:person) }
+    let(:args) { attributes_for(:client) }
 
     it { is_expected.to be_success }
 
