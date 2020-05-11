@@ -39,11 +39,10 @@ class ClientsController < ApplicationController
   #   end
   # end
 
-  # # DELETE /clients/1
-  # def destroy
-  #   @client.destroy
-  #   redirect_to clients_url, notice: 'Client was successfully destroyed.'
-  # end
+  # DELETE /clients/1
+  def destroy
+    @client.destroy
+  end
 
   private
 

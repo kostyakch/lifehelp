@@ -13,14 +13,15 @@
     </thead>
     <tbody>
       <tr v-for="item in this.clients" :key="item.id">
-        <td>{{ item.fio }}</td>
+        <td>{{ `${item.last_name} ${item.first_name} ${item.middle_name}` }}</td>
         <td>{{ item.dob }}</td>
         <td>{{ item.phone }}</td>
         <td>{{ `${item.city} ${item.address}` }}</td>
         <td>{{ item.description }}</td>
         <td>
-          <a :href="item.url">посм.</a>
-          <a :href="item.edit_url">ред.</a>
+          <a :href="showClient(item.id)">посм.</a>
+          <a :href="editClient(item.id)">ред.</a>
+          <a href="" v-on:click="destroyClient(item.id)">del.</a>
         </td>
       </tr>
     </tbody>
@@ -29,11 +30,25 @@
 
 <script>
 // import VueTableDynamic from "vue-table-dynamic";
+import { mapActions } from "vuex";
+import api from '../../api'
 
 export default {
   props: {
     clients: Array
-  }
+  },
+  methods: {
+    showClient(id) {
+      return Routes.client_path(id);
+    },
+    editClient(id) {
+      return Routes.edit_client_path(id);
+    },
+    ...mapActions({
+      destroyClient: "destroyClient"
+    })
+  },
+
   // data() {
   //   return {
   //     params: {

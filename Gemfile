@@ -6,7 +6,7 @@ gem 'puma', '~> 3.12'
 gem 'pg', '>= 0.18', '< 2.0'
 
 ### Frontend
-# gem 'sass-rails', '~> 5'
+gem 'sass-rails', '~> 5'
 # gem 'webpacker', '~> 4.0'
 gem 'webpacker'
 gem 'foreman'
@@ -22,6 +22,7 @@ gem 'turbolinks'
 gem 'rails-i18n', '~> 6.0.0'
 
 gem 'jbuilder', '~> 2.7'
+gem 'js-routes'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

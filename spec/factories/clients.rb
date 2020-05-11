@@ -5,6 +5,7 @@ FactoryBot.define do
     middle_name { Faker::Name.middle_name }
     city { Faker::Address.city }
     address { Faker::Address.street_address }
+    dob { Faker::Date.birthday }
     sequence(:phone) { |n| format('7915%<number>07d', number: n) }
 
     trait :with_service do

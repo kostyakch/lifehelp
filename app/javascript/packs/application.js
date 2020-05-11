@@ -9,6 +9,7 @@ import Vue from 'vue'
 
 // Import all the macro components of the application
 import * as instances from './instances'
+import store from '../store'
 
 // Vue.use(TurbolinksAdapter)
 
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       new Vue({
         el: element,
+        store,
         render: h => h(instance.component, { props })
       })
     })
