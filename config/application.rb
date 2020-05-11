@@ -20,7 +20,7 @@ module Lifehelp
     config.generators do |generator|
       # Add "id: :uuid, default: -> { 'uuid_generate_v4()' }" to 'create_table' in migrations
       generator.orm :active_record, primary_key_type: 'uuid, default: -> { \'uuid_generate_v4()\' }'
-      generator.template_engine :slim
+      # generator.template_engine :slim
       # Disable automated generation of scaffold.css.scss. May affect other generators
       generator.stylesheets false
       generator.javascripts false
