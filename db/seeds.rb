@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 10.times { FactoryBot.create(:client) }
+10.times { FactoryBot.create(:service) }
