@@ -11,7 +11,7 @@ module Abstract
     end
 
     register_macro(:date_format) do
-      next if value.nil?
+      next if value.blank?
 
       Date.parse(value)
     rescue StandardError => e
@@ -19,7 +19,7 @@ module Abstract
     end
 
     register_macro(:date_time_format) do
-      next if value.nil?
+      next if value.blank?
 
       DateTime.parse(value)
     rescue StandardError => e
@@ -35,7 +35,7 @@ module Abstract
     end
 
     register_macro(:phone_format) do
-      next if value.nil? || Phonelib.parse(value).valid?
+      next if value.blank? || Phonelib.parse(value).valid?
 
       key.failure(I18n.t('errors.contract.abstract.valid_phone'))
     end

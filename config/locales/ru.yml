@@ -32,3 +32,8 @@
 ru:
   not_found: Запись не найдена
   forbidden: Доступ запрещен
+  errors:
+    contract:
+      abstract:
+        valid_phone: Invalid phone number
+        not_valid_email: Invalid email

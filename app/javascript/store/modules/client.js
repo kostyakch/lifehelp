@@ -13,6 +13,12 @@ export const actions = {
       .then(() => {
         commit('clientDestroyed', clientId)
       })
+  },
+  addClient({ commit }, { clientParams }) {
+    api.client.create(clientParams)
+      .then((client) => {
+        commit('clientAdded', client)
+      })
   }
 }
 
@@ -21,13 +27,17 @@ export const mutations = {
     state.clients = clients
   },
   clientDestroyed(state, clientId) {
-    location.reload()
-    // state.clients = state.clients.filter(client => clientId === client.id)
+    // location.reload()
+    state.clients = state.clients.filter(client => clientId !== client.id)
+  },
+  clientAdded(state, client) {
+    state.clients.push(client)
+    location.replace('/')
   }
 }
 
 export default {
   state: defaultState,
   actions,
-  mutations
+  mutations,
 }

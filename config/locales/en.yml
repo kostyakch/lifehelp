@@ -32,3 +32,8 @@
 en:
   not_found: Not found
   forbidden: Forbidden
+  errors:
+    contract:
+      abstract:
+        valid_phone: Invalid phone number
+        not_valid_email: Invalid email

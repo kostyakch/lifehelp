@@ -1,6 +1,2 @@
-<h1>Editing Client</h1>
-
-<%= render 'form', client: @client %>
-
-<%= link_to 'Show', @client %> |
-<%= link_to 'Back', clients_path %>
+<% props = { client: @client }.to_json %>
+<div class="vue-client-form" data-props="<%= props %>"></div>

@@ -1,15 +1,12 @@
 class ClientsController < ApplicationController
   include ApplicationHelper
-  before_action :set_client, only: %i[show edit update destroy]
+  before_action :set_client, only: %i[edit update destroy]
 
   # GET /clients
   def index
-    @clients = Client.all
-    # render json: @clients
+    # TODO: Chenge to Operation
+    @clients = Client.all.order(:last_name).limit(100)
   end
-
-  # GET /clients/1
-  def show; end
 
   # GET /clients/new
   def new
@@ -21,23 +18,23 @@ class ClientsController < ApplicationController
 
   # POST /clients
   def create
-    @client = Client.new(client_params)
-
-    if @client.save
-      render json: @client, status: :created
+    operation = Client::Operation::Create.new.call(nil, client_params)
+    if operation.success?
+      render json: operation.value!, status: :created
     else
-      render json: @client.errors, status: :unprocessable_entity
+      render json: operation.failure, status: :unprocessable_entity
     end
   end
 
-  # # PATCH/PUT /clients/1
-  # def update
-  #   if @client.update(client_params)
-  #     redirect_to @client, notice: 'Client was successfully updated.'
-  #   else
-  #     render :edit
-  #   end
-  # end
+  # PATCH/PUT /clients/1
+  def update
+    operation = Client::Operation::Update.new.call(nil, client_params)
+    if operation.success?
+      render json: operation.value!, status: :ok
+    else
+      render json: operation.failure, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /clients/1
   def destroy
@@ -53,6 +50,6 @@ class ClientsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def client_params
-    params.fetch(:client, {})
+    params.require(:client).permit!
   end
 end

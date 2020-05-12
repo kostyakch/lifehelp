@@ -1,14 +1,22 @@
 import api from './instance'
 
-const create = (clientId, clientParams) =>
+const create = (clientParams) =>
   api
-    .post(Routes.client_path(clientId), clientParams)
-    .then(response => response.data);
+    .post(Routes.clients_path(), clientParams)
+    .then(response => response.data)
+
+const update = (clientParams) =>
+  api
+    .put(Routes.client_path(clientParams.id), clientParams)
+    .then(response => response.data)
 
 const destroy = clientId =>
-  api.delete(Routes.client_path(clientId)).then(response => response.data);
+  api
+    .delete(Routes.client_path(clientId))
+    .then(response => response.data);
 
 export default {
   create,
+  update,
   destroy
 }
