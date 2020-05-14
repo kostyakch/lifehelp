@@ -44,6 +44,12 @@ class PerformersController < ApplicationController
     @performer.destroy
   end
 
+  def search
+    @performers = Performer.search_for(params[:q]).limit(50)
+    render partial: 'index.json', performers: @performers
+    # render jbuilder: @services
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

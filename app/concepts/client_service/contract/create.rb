@@ -3,6 +3,7 @@ module ClientService::Contract
     params do
       required(:client_id).filled(:integer)
       required(:service_id).filled(:string)
+      optional(:performer_id).maybe(:str?)
       required(:started_at).filled(:string)
 
       optional(:status).maybe(:str?)

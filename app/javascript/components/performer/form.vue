@@ -63,8 +63,6 @@
 </template>
 
 <script>
-import api from "../../api";
-
 export default {
   name: "performerForm",
   props: {
@@ -139,13 +137,13 @@ export default {
       location.replace(Routes.performers_path());
     },
     create(model) {
-      api.performer
+      this.$api.performer
         .create(model)
         .then(service => location.replace(Routes.performers_path()))
         .catch(error => (this.formError = true));
     },
     update(model) {
-      api.performer
+      this.$api.performer
         .update(model)
         .then(service => location.replace(Routes.performers_path()))
         .catch(error => (this.formError = true));

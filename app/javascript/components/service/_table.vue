@@ -1,6 +1,6 @@
 <template>
   <el-table :data="tableData" stripe style="width: 100%">
-    <el-table-column prop="title" label="Заголовок"></el-table-column>
+    <el-table-column prop="title" sortable label="Заголовок"></el-table-column>
     <el-table-column prop="quantity" label="Количество"></el-table-column>
     <el-table-column prop="description" label="Описание услуги"></el-table-column>
 
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import api from "../../api";
-
 export default {
   name: "ServiceTable",
   props: {
@@ -34,7 +32,7 @@ export default {
   methods: {
     deleteRow(index, rows, id) {
       this.$confirm("Вы действительно хотите удалить запись?").then(_ => {
-        api.service
+        this.$api.service
           .destroy(id)
           .then(client => rows.splice(index, 1))
           .catch(error => (this.formError = true));

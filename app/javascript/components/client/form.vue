@@ -4,7 +4,9 @@
       <el-form :model="form" :rules="rules" ref="clientForm" label-width="180px">
         <center>
           <h2 v-if="form.id === null">Добавление клиента</h2>
-          <h2 v-else>Редактирование {{ form.last_name }} {{ form.first_name }} {{ form.middle_name }}</h2>
+          <h2
+            v-else
+          >Редактирование {{ form.last_name }} {{ form.first_name }} {{ form.middle_name }}</h2>
         </center>
 
         <el-form-item label>
@@ -38,7 +40,12 @@
           </el-col>
           <el-col :span="8">
             <el-form-item prop="dob">
-              <el-date-picker v-model.trim="form.dob" type="date" format="dd.MM.yyyy" placeholder="Рождение"></el-date-picker>
+              <el-date-picker
+                v-model.trim="form.dob"
+                type="date"
+                format="dd.MM.yyyy"
+                placeholder="Рождение"
+              ></el-date-picker>
             </el-form-item>
           </el-col>
         </el-form-item>
@@ -116,8 +123,6 @@
 </template>
 
 <script>
-import api from "../../api";
-
 export default {
   props: {
     client: Object
@@ -186,13 +191,13 @@ export default {
       location.replace(Routes.clients_path());
     },
     create(model) {
-      api.client
+      this.$api.client
         .create(model)
         .then(client => location.replace(Routes.clients_path()))
         .catch(error => (this.formError = true));
     },
     update(model) {
-      api.client
+      this.$api.client
         .update(model)
         .then(client => location.replace(Routes.clients_path()))
         .catch(error => (this.formError = true));

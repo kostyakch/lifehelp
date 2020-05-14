@@ -2,6 +2,10 @@ class Performer < ApplicationRecord
   enum performer_type: %i[person volontier organization]
 
   scope :sorted, -> { reorder(last_name: :asc, first_name: :asc) }
+  scope :search_for, lambda { |query|
+    where("CONCAT_WS(' ', performers.last_name, performers.first_name,
+      performers.middle_name) ILIKE :q", q: "%#{query&.squish}%")
+  }
 end
 
 # == Schema Information

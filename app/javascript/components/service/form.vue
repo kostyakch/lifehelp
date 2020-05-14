@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import api from "../../api";
-
 export default {
   props: {
     service: Object
@@ -57,7 +55,7 @@ export default {
             message: "Значение должно быть больше 2х символов",
             trigger: "blur"
           }
-        ],
+        ]
       }
     };
   },
@@ -78,13 +76,13 @@ export default {
       location.replace(Routes.services_path());
     },
     create(model) {
-      api.service
+      this.$api.service
         .create(model)
         .then(service => location.replace(Routes.services_path()))
         .catch(error => (this.formError = true));
     },
     update(model) {
-      api.service
+      this.$api.service
         .update(model)
         .then(service => location.replace(Routes.services_path()))
         .catch(error => (this.formError = true));

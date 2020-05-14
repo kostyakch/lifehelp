@@ -62,6 +62,6 @@ class ClientServicesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def client_service_params
     params.require(:client_service)
-          .permit(%i[status review started_at finished_at client_id service_id])
+          .permit(%i[status review started_at finished_at client_id service_id performer_id])
   end
 end
