@@ -4,7 +4,7 @@
     <el-table-column prop="quantity" label="Количество"></el-table-column>
     <el-table-column prop="description" label="Описание услуги"></el-table-column>
 
-    <el-table-column fixed="right" label="Действия" width="180">
+    <el-table-column fixed="right" label="Действия" width="120">
       <template slot-scope="scope">
         <el-button type="primary" icon="el-icon-edit" circle @click="editService(scope.row.id)"></el-button>
         <el-button
@@ -44,8 +44,3 @@ export default {
   }
 };
 </script>
-<style>
-.client-table {
-  width: 90%;
-}
-</style>

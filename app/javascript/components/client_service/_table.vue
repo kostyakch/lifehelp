@@ -18,8 +18,8 @@
       </template>
     </el-table-column>
 
-    <el-table-column prop="client.fio" sortable label="ФИО" min-width="200"></el-table-column>
-    <el-table-column prop="service.title" sortable label="Наименование" min-width="250"></el-table-column>
+    <el-table-column prop="client.fio" sortable label="ФИО" min-width="160"></el-table-column>
+    <el-table-column prop="service.title" sortable label="Наименование" min-width="160"></el-table-column>
 
     <el-table-column sortable label="Статус">
       <template slot-scope="props">{{ i18n.t("enums.client_service.status."+props.row.status) }}</template>
@@ -31,7 +31,7 @@
       <template slot-scope="props">{{ props.row.finished_at | moment("DD.MM.YYYY HH:mm") }}</template>
     </el-table-column>
 
-    <el-table-column fixed="right" label="Действия" width="280">
+    <el-table-column fixed="right" label="Действия" width="120">
       <template slot-scope="scope">
         <el-button type="primary" icon="el-icon-edit" circle @click="editRecord(scope.row.id)"></el-button>
         <el-button

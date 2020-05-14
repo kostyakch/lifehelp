@@ -62,7 +62,7 @@
     </el-table-column>
     <el-table-column prop="phone" label="Телефон"></el-table-column>
     <el-table-column prop="city" sortable label="Город"></el-table-column>
-    <el-table-column fixed="right" label="Действия" width="280">
+    <el-table-column fixed="right" label="Действия" width="180">
       <template slot-scope="scope">
         <el-button
           type="success"
@@ -115,8 +115,3 @@ export default {
   }
 };
 </script>
-<style>
-.client-table {
-  width: 90%;
-}
-</style>

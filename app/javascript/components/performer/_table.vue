@@ -1,9 +1,9 @@
 <template>
   <el-table :data="tableData" stripe style="width: 100%">
-    <el-table-column prop="fio" sortable label="ФИО" :min-width="240"></el-table-column>
+    <el-table-column prop="fio" sortable label="ФИО" :min-width="160"></el-table-column>
     <el-table-column prop="phone" label="Телефон"></el-table-column>
     <el-table-column prop="email" label="E-mail"></el-table-column>
-    <el-table-column prop="address" label="Адрес" :min-width="180"></el-table-column>
+    <el-table-column prop="address" label="Адрес" :min-width="160"></el-table-column>
     <el-table-column prop="performer_type" label="Тип исполнителя">
       <template
         slot-scope="props"
@@ -51,8 +51,3 @@ export default {
   }
 };
 </script>
-<style>
-.client-table {
-  width: 90%;
-}
-</style>
