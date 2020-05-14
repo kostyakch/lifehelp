@@ -48,3 +48,16 @@ export const ClientServiceFormInstance = {
   el: '.vue-client-service-form',
   component: ClientServiceForm
 }
+
+// Import performer components
+import PerformerList from '../components/performer/index.vue'
+import PerformerForm from '../components/performer/form.vue'
+
+export const PerformerListInstance = {
+  el: '.vue-performers',
+  component: PerformerList
+}
+export const PerformerFormInstance = {
+  el: '.vue-performer-form',
+  component: PerformerForm
+}

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :service do
-    sequence(:title) { |n| "My service #{n}" }
+    sequence(:title) { |n| "Нужно что-то сделать #{n}" }
     quantity { rand(1..999) }
-    sequence(:description) { |n| "Description #{n}" }
+    sequence(:description) { |n| "Описание услуги #{n}" }
   end
 end
 

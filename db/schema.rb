@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_095544) do
+ActiveRecord::Schema.define(version: 2020_05_14_120307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,9 @@ ActiveRecord::Schema.define(version: 2020_05_10_095544) do
     t.string "review"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "performer_id"
     t.index ["client_id"], name: "index_client_services_on_client_id"
+    t.index ["performer_id"], name: "index_client_services_on_performer_id"
     t.index ["service_id"], name: "index_client_services_on_service_id"
   end
 
@@ -50,6 +52,19 @@ ActiveRecord::Schema.define(version: 2020_05_10_095544) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "performers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "middle_name"
+    t.integer "performer_type", default: 0, null: false
+    t.string "phone", null: false
+    t.string "email"
+    t.string "address"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "services", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "title", null: false
     t.integer "quantity"
@@ -59,5 +74,6 @@ ActiveRecord::Schema.define(version: 2020_05_10_095544) do
   end
 
   add_foreign_key "client_services", "clients"
+  add_foreign_key "client_services", "performers"
   add_foreign_key "client_services", "services"
 end

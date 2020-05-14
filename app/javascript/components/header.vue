@@ -9,6 +9,9 @@
     <el-menu-item index="services">
       <a :href="servicesPath()">Справочник услуг</a>
     </el-menu-item>
+    <el-menu-item index="performers">
+      <a :href="performersPath()">Исполнители</a>
+    </el-menu-item>
   </el-menu>
 </template>
 
@@ -28,6 +31,9 @@ export default {
     },
     clientServicesPath() {
       return Routes.client_services_path();
+    },
+    performersPath() {
+      return Routes.performers_path();
     }
   }
 };

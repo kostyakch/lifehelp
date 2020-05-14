@@ -10,7 +10,6 @@ import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/ru-RU'
 import 'element-ui/lib/theme-chalk/index.css';
 
-
 // Import all the macro components of the application
 import * as instances from './instances'
 import store from '../store'

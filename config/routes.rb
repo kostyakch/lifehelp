@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :clients, except: :show
   resources :services, except: :show, concerns: %i[searchable]
   resources :client_services
+  resources :performers, except: :show
 end
