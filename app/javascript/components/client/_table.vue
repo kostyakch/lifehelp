@@ -28,43 +28,48 @@
           <el-col :span="10">
             <p>
               <b>Источник данных:</b>
-              {{ props.row.source }}
+              {{ i18n.t("enums.client.source."+props.row.source) }}
             </p>
             <p>
               <b>Параметры:</b>
-              {{ props.row.client_type }}
+              {{ i18n.t("enums.client.client_type."+props.row.client_type) }}
             </p>
             <p>
               <b>Код:</b>
-              {{ props.row.code }}
+              {{ i18n.t("enums.client.code."+props.row.code) }}
             </p>
             <p>
               <b>Объективность:</b>
-              {{ props.row.objectivity }}
+              {{ i18n.t("enums.client.objectivity."+props.row.objectivity) }}
             </p>
             <p>
               <b>Материальный статус:</b>
-              {{ props.row.marital_status }}
+              {{ i18n.t("enums.client.marital_status."+props.row.marital_status) }}
             </p>
             <p>
               <b>Социальный статус:</b>
-              {{ props.row.social_status }}
+              {{ i18n.t("enums.client.social_status."+props.row.social_status) }}
             </p>
           </el-col>
         </el-row>
       </template>
     </el-table-column>
     <el-table-column label="ФИО">
-      <template
-        slot-scope="props"
-      >{{ props.row.last_name }} {{ props.row.first_name }} {{ props.row.middle_name }}</template>
+      <template slot-scope="props">{{ props.row.fio }}</template>
     </el-table-column>
-    <el-table-column prop="dob" label="Дата рождения"></el-table-column>
+    <el-table-column prop="dob" label="Дата рождения">
+      <template slot-scope="props">{{ props.row.dob | moment("DD.MM.YYYY") }}</template>
+    </el-table-column>
     <el-table-column prop="phone" label="Телефон"></el-table-column>
     <el-table-column prop="city" label="Город"></el-table-column>
     <el-table-column fixed="right" label="Действия" width="280">
       <template slot-scope="scope">
-        <el-button type="primary" icon="el-icon-check" circle @click="showClient(scope.row.id)"></el-button>
+        <el-button
+          type="success"
+          icon="el-icon-truck"
+          circle
+          @click="newClientService(scope.row.id)"
+        ></el-button>
         <el-button type="primary" icon="el-icon-edit" circle @click="editClient(scope.row.id)"></el-button>
         <el-button
           type="danger"
@@ -87,14 +92,16 @@ export default {
   },
   methods: {
     deleteRow(index, rows, id) {
-      this.destroyClient(id);
-      rows.splice(index, 1);
-    },
-    showClient(id) {
-      location.replace(Routes.client_path(id));
+      this.$confirm("Вы действительно хотите удалить запись?").then(_ => {
+        this.destroyClient(id);
+        rows.splice(index, 1);
+      });
     },
     editClient(id) {
       location.replace(Routes.edit_client_path(id));
+    },
+    newClientService(id) {
+      location.replace(Routes.new_client_service_path({ client_id: id }));
     },
     ...mapActions({
       destroyClient: "destroyClient"
@@ -102,7 +109,8 @@ export default {
   },
   data() {
     return {
-      tableData: this.clients
+      tableData: this.clients,
+      i18n: I18n
     };
   }
 };

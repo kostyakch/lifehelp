@@ -38,7 +38,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item prop="dob">
-              <el-date-picker v-model.trim="form.dob" type="date" placeholder="Рождение"></el-date-picker>
+              <el-date-picker v-model.trim="form.dob" type="date" format="dd.MM.yyyy" placeholder="Рождение"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-form-item>

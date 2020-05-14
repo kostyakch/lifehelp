@@ -1,10 +1,10 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: %i[edit update destroy]
+  before_action :set_service, only: %i[edit destroy]
 
   # GET /services
   # GET /services.json
   def index
-    @services = Service.all.order(:title).limit(100)
+    @services = Service.sorted.limit(100)
   end
 
   # GET /services/new
@@ -41,6 +41,11 @@ class ServicesController < ApplicationController
   # DELETE /services/1.json
   def destroy
     @service.destroy
+  end
+
+  def search
+    @services = Service.search_for(params[:q]).limit(50)
+    render json: @services
   end
 
   private

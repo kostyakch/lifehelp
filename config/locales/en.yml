@@ -37,3 +37,38 @@ en:
       abstract:
         valid_phone: Invalid phone number
         not_valid_email: Invalid email
+
+  enums:
+    client:
+      client_type:
+        person: Частное лицо
+        organization: Огранизация
+      code:
+        A: A
+        B: B
+        C: C
+        D: D
+      objectivity:
+        is_not_clear: Не ясно
+        objectively: Объективно
+        subjectively: Не объективно
+      marital_status:
+        no_ms: Не задано
+        single_mother: Мать одиночка
+        large: Многодетная семья
+      social_status:
+        no_ss: Не задано
+        disabled: Инвалид
+        unemployed: Безработный
+      source:
+        no_source: Не определен
+        direct_call: Прямой звонок
+        call_center: Кол-центр
+        volunteers: Волонтеры
+        no_commercial_org: Не коммерческие организации
+        commercial_org: Коммерческие организации
+    client_service:
+      status:
+        started: Инициирована
+        in_work: В работе
+        completed: Выполнена

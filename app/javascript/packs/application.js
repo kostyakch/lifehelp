@@ -10,12 +10,16 @@ import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/ru-RU'
 import 'element-ui/lib/theme-chalk/index.css';
 
+
 // Import all the macro components of the application
 import * as instances from './instances'
 import store from '../store'
 
-// Vue.use(TurbolinksAdapter)
 Vue.use(ElementUI, { locale })
+Vue.use(require('vue-moment'));
+
+I18n.defaultLocale = "ru";
+I18n.locale = "ru";
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize available instances

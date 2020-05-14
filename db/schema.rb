@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_095544) do
     t.integer "status", default: 0, null: false
     t.datetime "started_at", null: false
     t.datetime "finished_at"
+    t.string "review"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_client_services_on_client_id"

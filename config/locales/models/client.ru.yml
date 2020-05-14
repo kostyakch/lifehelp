@@ -1,18 +1,20 @@
 ru:
   activerecord:
     models:
-      person: Персона
+      client: Клиент
     attributes:
-      person:
+      client:
         first_name: Имя
         last_name: Фамилия
         middle_name: Отчество
         phone: Телефон
+        email: E-mail
         dob: Дата рождения
         city: Город
         address: Адрес
         area: Район
         description: Комментарий
+        client_type: Тип клиента
         code: Код заявки
         objectivity: Объективность
         marital_status: Материальный статус

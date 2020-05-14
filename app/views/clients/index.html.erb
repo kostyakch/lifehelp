@@ -1,2 +1,3 @@
-<% props = { clients: @clients }.to_json %>
+<% props = { clients: serialize('index.json', clients: @clients) }.to_json %>
+
 <div class="vue-clients" data-props="<%= props %>"></div>

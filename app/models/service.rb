@@ -1,6 +1,9 @@
 class Service < ApplicationRecord
   has_many :client_services
   has_many :clients, through: :client_services
+
+  scope :sorted, -> { reorder(title: :asc) }
+  scope :search_for, ->(q) { where 'services.title ILIKE :q', q: "%#{q&.squish}%" }
 end
 
 # == Schema Information
