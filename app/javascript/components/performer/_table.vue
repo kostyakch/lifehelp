@@ -1,11 +1,13 @@
 <template>
   <el-table :data="tableData" stripe style="width: 100%">
-    <el-table-column prop="fio" label="ФИО" :min-width="240"></el-table-column>
+    <el-table-column prop="fio" sortable label="ФИО" :min-width="240"></el-table-column>
     <el-table-column prop="phone" label="Телефон"></el-table-column>
     <el-table-column prop="email" label="E-mail"></el-table-column>
     <el-table-column prop="address" label="Адрес" :min-width="180"></el-table-column>
     <el-table-column prop="performer_type" label="Тип исполнителя">
-      <template slot-scope="props">{{ i18n.t("enums.performer.performer_type."+props.row.performer_type) }}</template>
+      <template
+        slot-scope="props"
+      >{{ i18n.t("enums.performer.performer_type."+props.row.performer_type) }}</template>
     </el-table-column>
 
     <el-table-column fixed="right" label="Действия" width="120">
@@ -23,8 +25,6 @@
 </template>
 
 <script>
-import api from "../../api";
-
 export default {
   name: "PerformerTable",
   props: {
@@ -39,7 +39,7 @@ export default {
   methods: {
     deleteRow(index, rows, id) {
       this.$confirm("Вы действительно хотите удалить запись?").then(_ => {
-        api.performer
+        this.$api.performer
           .destroy(id)
           .then(client => rows.splice(index, 1))
           .catch(error => (this.formError = true));

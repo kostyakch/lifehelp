@@ -1,15 +1,33 @@
 <template>
   <el-table :data="tableData" stripe style="width: 100%">
-    <el-table-column prop="client.fio" label="ФИО" min-width="200"></el-table-column>
-    <el-table-column prop="service.title" label="Наименование" min-width="250"></el-table-column>
+    <el-table-column type="expand" :v-if="false">
+      <template slot-scope="props">
+        <el-row :gutter="20">
+          <el-col :span="10">
+            <p>
+              <b>Исполнитель:</b>
+              {{ props.row.performer.fio }}
+            </p>
+            <p>
+              <b>Отзыв:</b>
+              {{ props.row.review }}
+            </p>
+          </el-col>
+          <el-col :span="10"></el-col>
+        </el-row>
+      </template>
+    </el-table-column>
 
-    <el-table-column label="Статус">
+    <el-table-column prop="client.fio" sortable label="ФИО" min-width="200"></el-table-column>
+    <el-table-column prop="service.title" sortable label="Наименование" min-width="250"></el-table-column>
+
+    <el-table-column sortable label="Статус">
       <template slot-scope="props">{{ i18n.t("enums.client_service.status."+props.row.status) }}</template>
     </el-table-column>
-    <el-table-column prop="started_at" label="Начало">
+    <el-table-column prop="started_at" sortable label="Начало">
       <template slot-scope="props">{{ props.row.started_at | moment("DD.MM.YYYY HH:mm") }}</template>
     </el-table-column>
-    <el-table-column prop="finished_at" label="Завершение">
+    <el-table-column prop="finished_at" sortable label="Завершение">
       <template slot-scope="props">{{ props.row.finished_at | moment("DD.MM.YYYY HH:mm") }}</template>
     </el-table-column>
 
@@ -28,8 +46,6 @@
 </template>
 
 <script>
-import api from "../../api";
-
 export default {
   props: {
     client_services: Array
@@ -46,7 +62,7 @@ export default {
     },
     deleteRow(index, rows, id) {
       this.$confirm("Вы действительно хотите удалить запись?").then(_ => {
-        api.client_service
+        this.$api.client_service
           .destroy(id)
           .then(client => rows.splice(index, 1))
           .catch(error => (this.formError = true));

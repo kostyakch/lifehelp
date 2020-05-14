@@ -37,6 +37,25 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item label="Исполнитель" prop="performer_id">
+          <el-select
+            v-model="form.performer_id"
+            filterable
+            remote
+            reserve-keyword
+            placeholder="Введите исполнителя"
+            :remote-method="searchPerformers"
+            :loading="loading"
+          >
+            <el-option
+              v-for="item in perfornerOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="Статус" prop="status">
           <el-radio-group v-model="form.status" size="mini">
             <el-radio-button label="started" selected>Инициирована</el-radio-button>
@@ -81,8 +100,6 @@
 </template>
 
 <script>
-import api from "../../api";
-
 export default {
   name: "clientServiceForm",
   props: {
@@ -107,6 +124,12 @@ export default {
           label: this.client_service.service.title
         }
       ],
+      perfornerOptions: [
+        {
+          value: this.client_service.performer_id,
+          label: this.client_service.performer.fio
+        }
+      ],
       value: [],
       list: []
     };
@@ -128,13 +151,13 @@ export default {
       location.replace(Routes.client_services_path());
     },
     create(model) {
-      api.client_service
+      this.$api.client_service
         .create(model)
         .then(service => location.replace(Routes.client_services_path()))
         .catch(error => (this.formError = true));
     },
     update(model) {
-      api.client_service
+      this.$api.client_service
         .update(model)
         .then(service => location.replace(Routes.client_services_path()))
         .catch(error => (this.formError = true));
@@ -142,7 +165,7 @@ export default {
     searchServices(query) {
       if (query !== "") {
         this.loading = true;
-        api.service.search(query).then(data => {
+        this.$api.service.search(query).then(data => {
           this.list = data.map(item => {
             return { value: item.id, label: item.title };
           });
@@ -156,6 +179,26 @@ export default {
         }, 200);
       } else {
         this.options = [];
+      }
+    },
+    searchPerformers(query) {
+      if (query !== "") {
+        this.loading = true;
+        this.$api.performer.search(query).then(data => {
+          console.log(data);
+          this.list = data.map(item => {
+            return { value: item.id, label: item.fio };
+          });
+        });
+
+        setTimeout(() => {
+          this.loading = false;
+          this.perfornerOptions = this.list.filter(item => {
+            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+          });
+        }, 200);
+      } else {
+        this.perfornerOptions = [];
       }
     }
   }

@@ -54,14 +54,14 @@
         </el-row>
       </template>
     </el-table-column>
-    <el-table-column label="ФИО">
-      <template slot-scope="props">{{ props.row.fio }}</template>
-    </el-table-column>
-    <el-table-column prop="dob" label="Дата рождения">
-      <template slot-scope="props">{{ props.row.dob | moment("DD.MM.YYYY") }}</template>
+    <el-table-column prop="fio" sortable label="ФИО"></el-table-column>
+    <el-table-column prop="dob" sortable label="Дата рождения">
+      <template
+        slot-scope="props"
+      >{{ props.row.dob | moment("DD.MM.YYYY") }} ({{ years(props.row.dob) }})</template>
     </el-table-column>
     <el-table-column prop="phone" label="Телефон"></el-table-column>
-    <el-table-column prop="city" label="Город"></el-table-column>
+    <el-table-column prop="city" sortable label="Город"></el-table-column>
     <el-table-column fixed="right" label="Действия" width="280">
       <template slot-scope="scope">
         <el-button
@@ -83,9 +83,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import api from "../../api";
-
 export default {
   props: {
     clients: Array
@@ -93,8 +90,9 @@ export default {
   methods: {
     deleteRow(index, rows, id) {
       this.$confirm("Вы действительно хотите удалить запись?").then(_ => {
-        this.destroyClient(id);
-        rows.splice(index, 1);
+        this.$api.client.destroy(id).then(() => {
+          rows.splice(index, 1);
+        });
       });
     },
     editClient(id) {
@@ -103,9 +101,11 @@ export default {
     newClientService(id) {
       location.replace(Routes.new_client_service_path({ client_id: id }));
     },
-    ...mapActions({
-      destroyClient: "destroyClient"
-    })
+    years(date) {
+      if (date === "") return;
+      var now = new Date();
+      return parseInt(now.toISOString()) - parseInt(date);
+    }
   },
   data() {
     return {

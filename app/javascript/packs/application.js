@@ -12,7 +12,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 // Import all the macro components of the application
 import * as instances from './instances'
-import store from '../store'
+import api from '../api'
+Vue.prototype.$api = api;
 
 Vue.use(ElementUI, { locale })
 Vue.use(require('vue-moment'));
@@ -32,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       new Vue({
         el: element,
-        store,
         render: h => h(instance.component, { props })
       })
     })
