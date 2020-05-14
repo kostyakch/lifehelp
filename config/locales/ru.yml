@@ -72,3 +72,8 @@ ru:
         started: Инициирована
         in_work: В работе
         completed: Выполнена
+    performer:
+      performer_type:
+        person: Частное лицо
+        volontier: Волонтер
+        organization: Организация

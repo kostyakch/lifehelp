@@ -8,3 +8,4 @@
 
 10.times { FactoryBot.create(:client) }
 10.times { FactoryBot.create(:service) }
+10.times { FactoryBot.create(:performer) }
