@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    models:
+      client_service: Оказанные услуги
+    attributes:
+      client_service:
+        client: Клиент
+        service: Услуга
+        status: Статус
+        started_at: Дата начала
+        finished_at: Дата завершения
+        review: Отзыв

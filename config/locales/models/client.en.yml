@@ -1,20 +1,23 @@
 en:
   activerecord:
     models:
-      person: Person
+      client: Сlient
     attributes:
-      person:
+      client:
         first_name: First name
         last_name: Last name
         middle_name: Middle name
         phone: Phone
+        email: Email
         dob: Date of birth
         city: City
         address: Address
         area: Area
         description: Description
+        client_type: Сlient type
         code: Code
         objectivity: Objectivity
         marital_status: Marital status
         social_status: Social status
         source: Source
+

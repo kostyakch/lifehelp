@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    models:
+      client_service: Client and Service
+    attributes:
+      client_service:
+        client: Client
+        service: Service
+        status: Status
+        started_at: Started at
+        finished_at: Finished at
+        review: Review

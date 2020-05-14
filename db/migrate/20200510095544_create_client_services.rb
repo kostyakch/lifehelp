@@ -7,6 +7,7 @@ class CreateClientServices < ActiveRecord::Migration[6.0]
       t.integer :status, null: false, default: 0
       t.timestamp :started_at, null: false
       t.timestamp :finished_at
+      t.string :review
 
       t.timestamps
     end

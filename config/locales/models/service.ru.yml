@@ -1,0 +1,9 @@
+ru:
+  activerecord:
+    models:
+      service: Услуга
+    attributes:
+      service:
+        title: Заголовок
+        quantity: Количество
+        description: Описание

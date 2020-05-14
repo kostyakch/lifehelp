@@ -33,10 +33,12 @@ export default {
   },
   methods: {
     deleteRow(index, rows, id) {
-      api.service
-        .destroy(id)
-        .then(client => rows.splice(index, 1))
-        .catch(error => (this.formError = true));
+      this.$confirm("Вы действительно хотите удалить запись?").then(_ => {
+        api.service
+          .destroy(id)
+          .then(client => rows.splice(index, 1))
+          .catch(error => (this.formError = true));
+      });
     },
     editService(id) {
       location.replace(Routes.edit_service_path(id));

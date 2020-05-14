@@ -4,7 +4,7 @@ RSpec.describe Client::Operation::Create do
   subject { described_class.new.call(nil, args) }
 
   describe 'call' do
-    let(:args) { attributes_for(:client) }
+    let(:args) { attributes_for(:client).merge(dob: 40.years.ago.iso8601) }
 
     it { is_expected.to be_success }
 

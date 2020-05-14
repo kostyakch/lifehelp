@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :client_service do
     started_at { Faker::Date.between(from: 2.month.ago, to: Date.current) }
+    sequence(:review) { |n| "Review #{n}" }
     association :client
     association :service
 
@@ -29,6 +30,7 @@ end
 #  status      :integer          default("started"), not null
 #  started_at  :datetime         not null
 #  finished_at :datetime
+#  review      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

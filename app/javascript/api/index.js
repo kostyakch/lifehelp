@@ -1,7 +1,9 @@
 import client from './client'
 import service from './service'
+import client_service from './client_service'
 
 export default {
   client,
-  service
+  service,
+  client_service
 }

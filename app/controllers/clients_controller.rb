@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   # GET /clients
   def index
     # TODO: Chenge to Operation
-    @clients = Client.all.order(:last_name).limit(100)
+    @clients = Client.sorted.limit(100)
   end
 
   # GET /clients/new

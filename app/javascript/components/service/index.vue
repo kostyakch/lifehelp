@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <el-row>
-      <h2>Список услуг</h2>
-      <el-button type="primary" plain @click="newService()" class="bt-add">Добавить</el-button>
-    </el-row>
+  <el-row>
+    <h2>Справочник услуг</h2>
+    <el-button type="primary" plain @click="newService()" class="bt-add">Добавить</el-button>
 
     <ServiceTable :services="this.services" />
-  </div>
+  </el-row>
 </template>
 
 <script>

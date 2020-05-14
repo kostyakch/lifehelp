@@ -1,5 +1,5 @@
 class Client < ApplicationRecord
-  has_many :client_services
+  has_many :client_services, dependent: :destroy
   has_many :services, through: :client_services
 
   enum client_type: %i[person organization]
@@ -8,6 +8,8 @@ class Client < ApplicationRecord
   enum marital_status: %i[no_ms single_mother large]
   enum social_status: %i[no_ss disabled unemployed]
   enum source: %i[no_source direct_call call_center volunteers no_commercial_org commercial_org]
+
+  scope :sorted, -> { reorder(last_name: :asc, first_name: :asc) }
 end
 
 # == Schema Information

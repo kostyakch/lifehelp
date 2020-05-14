@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= I18n.locale %>">
   <head>
     <title>Lifehelp</title>
     <%= csrf_meta_tags %>
@@ -12,8 +12,10 @@
   </head>
 
   <body>
-    <div>
-      <%= yield %>
-    </div>
+    <section class="el-container is-vertical">
+      <header class="el-header"><div class="vue-header"></div></header>
+      <div class="el-main"><%= yield %></div>
+      <footer class="el-footer"><div class="vue-footer"></div></footer>
+    </section>
   </body>
 </html>
