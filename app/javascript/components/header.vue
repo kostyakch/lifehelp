@@ -12,6 +12,9 @@
     <el-menu-item index="performers">
       <a :href="rts.performers_path()">Исполнители</a>
     </el-menu-item>
+    <el-menu-item index="sign-out" @click="signOut()" class="right">
+      <a href="#" @click="signOut()">Выход</a>
+    </el-menu-item>
   </el-menu>
 </template>
 
@@ -22,6 +25,19 @@ export default {
       activeIndex: "",
       rts: Routes
     };
+  },
+  methods: {
+    signOut() {
+      this.$api.user
+        .signOut()
+        .then(resp => location.replace(Routes.root_path()));
+    }
   }
 };
 </script>
+
+<style>
+.el-menu--horizontal > .el-menu-item.right {
+  float: right;
+}
+</style>

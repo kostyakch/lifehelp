@@ -61,3 +61,10 @@ export const PerformerFormInstance = {
   el: '.vue-performer-form',
   component: PerformerForm
 }
+
+// vue-user-auth-form
+import UserAuthForm from '../components/user/auth_form.vue'
+export const UserAuthFormInstance = {
+  el: '.vue-user-auth-form',
+  component: UserAuthForm
+}

@@ -13,7 +13,9 @@
 
   <body>
     <section class="el-container is-vertical">
-      <header class="el-header"><div class="vue-header"></div></header>
+      <% if user_signed_in? %>
+        <header class="el-header"><div class="vue-header"></div></header>
+      <% end %>
       <div class="el-main"><%= yield %></div>
       <footer class="el-footer"><div class="vue-footer"></div></footer>
     </section>
