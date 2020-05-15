@@ -38,7 +38,8 @@ class ClientServicesController < ApplicationController
   # PATCH/PUT /client_services/1
   # PATCH/PUT /client_services/1.json
   def update
-    operation = ClientService::Operation::Update.new.call(nil, client_service_params.merge(id: params[:id]))
+    operation = ClientService::Operation::Update
+                .new.call(nil, client_service_params.merge(id: params[:id]))
     if operation.success?
       render json: operation.value!, status: :ok
     else
@@ -50,6 +51,11 @@ class ClientServicesController < ApplicationController
   # DELETE /client_services/1.json
   def destroy
     @client_service.destroy
+  end
+
+  def search
+    @client_services = ClientService.search_for(params[:q]).limit(100)
+    render partial: 'index.json', client_services: @client_services
   end
 
   private

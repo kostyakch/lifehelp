@@ -2,6 +2,7 @@
   <el-row>
     <h2>Список клиентов</h2>
     <el-button type="primary" plain @click="newClient()" class="bt-add">Добавить</el-button>
+
     <ClientTable :clients="this.clients" />
   </el-row>
 </template>

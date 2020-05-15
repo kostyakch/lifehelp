@@ -52,50 +52,40 @@
 
         <el-form-item label="Источник данных" prop="source">
           <el-radio-group v-model="form.source" size="mini">
-            <el-radio-button label="no_source">Не определен</el-radio-button>
-            <el-radio-button label="direct_call">Прямой звонок</el-radio-button>
-            <el-radio-button label="call_center">Кол-центр</el-radio-button>
-            <el-radio-button label="volunteers">Волонтеры</el-radio-button>
-            <el-radio-button label="no_commercial_org">Некоммерческая организация</el-radio-button>
-            <el-radio-button label="commercial_org">Организация</el-radio-button>
+            <el-radio-button v-for="(item, index) in sources" :key="index" :label="index">{{ item }}</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item label="Параметры" prop="client_type">
           <el-radio-group v-model="form.client_type" size="mini">
-            <el-radio-button label="person">Частное лицо</el-radio-button>
-            <el-radio-button label="organization">Организация</el-radio-button>
+            <el-radio-button v-for="(item, index) in ctypes" :key="index" :label="index">{{ item }}</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item label="Коды" prop="code">
           <el-radio-group v-model="form.code" size="mini">
-            <el-radio-button label="A"></el-radio-button>
-            <el-radio-button label="B"></el-radio-button>
-            <el-radio-button label="C"></el-radio-button>
-            <el-radio-button label="D"></el-radio-button>
+            <el-radio-button v-for="(item, index) in codes" :key="index" :label="index">{{ item }}</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item label="Объективность" prop="objectivity">
           <el-radio-group v-model="form.objectivity" size="mini">
-            <el-radio-button label="is_not_clear">Не ясно</el-radio-button>
-            <el-radio-button label="objectively">Объективно</el-radio-button>
-            <el-radio-button label="subjectively">Не объективно</el-radio-button>
+            <el-radio-button v-for="(item, index) in objs" :key="index" :label="index">{{ item }}</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item label="Материальный статус" prop="marital_status">
           <el-radio-group v-model="form.marital_status" size="mini">
-            <el-radio-button label="single_mother">Мать одиночка</el-radio-button>
-            <el-radio-button label="large">Многодетная семья</el-radio-button>
+            <el-radio-button
+              v-for="(item, index) in maritals"
+              :key="index"
+              :label="index"
+            >{{ item }}</el-radio-button>
           </el-radio-group>
         </el-form-item>
-
         <el-form-item label="Социальный статус" prop="social_status">
           <el-radio-group v-model="form.social_status" size="mini">
-            <el-radio-button label="disabled">Инвалид</el-radio-button>
-            <el-radio-button label="unemployed">Безработный</el-radio-button>
+            <el-radio-button v-for="(item, index) in socials" :key="index" :label="index">{{ item }}</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
@@ -131,6 +121,7 @@ export default {
     return {
       formError: false,
       form: this.client,
+      i18n: I18n,
       rules: {
         first_name: [
           {
@@ -171,13 +162,20 @@ export default {
             trigger: "blur"
           }
         ]
-      }
+      },
+      maritals: I18n.t("enums.client.marital_status"),
+      socials: I18n.t("enums.client.social_status"),
+      objs: I18n.t("enums.client.objectivity"),
+      codes: I18n.t("enums.client.code"),
+      ctypes: I18n.t("enums.client.client_type"),
+      sources: I18n.t("enums.client.source")
     };
   },
   methods: {
     submitForm() {
       const frm = this.$refs["clientForm"];
       frm.validate(valid => {
+        console.log(this.socials);
         if (valid) {
           if (this.client.id === null) {
             this.create(frm.model);

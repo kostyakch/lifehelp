@@ -30,8 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  not_found: Not found
-  forbidden: Forbidden
+  not_found: Запись не найдена
+  forbidden: Доступ запрещен
   errors:
     contract:
       abstract:
@@ -41,39 +41,49 @@ en:
   enums:
     client:
       client_type:
-        person: Частное лицо
-        organization: Огранизация
+        01_person: Частное лицо
+        02_organization: Огранизация
       code:
         A: A
         B: B
         C: C
         D: D
       objectivity:
-        is_not_clear: Не ясно
-        objectively: Объективно
-        subjectively: Не объективно
+        01_is_not_clear: Не ясно
+        02_objectively: Объективно
+        03_subjectively: Не объективно
       marital_status:
-        no_ms: Не задано
-        single_mother: Мать одиночка
-        large: Многодетная семья
+        01_no_ms: Не задано
+        02_small: Плохой
+        03_middle: Средний
+        04_normal: Нормальный
+        05_large: Отличный
       social_status:
-        no_ss: Не задано
-        disabled: Инвалид
-        unemployed: Безработный
+        01_no_ss: Не задано
+        02_single_mother: Мать одиночка
+        03_large: Многодетная семья
+        04_disabled: Инвалид
+        05_unemployed: Безработный
+        06_bum: Люди-бомж
+        07_migrant: Беженец
+        08_refugee: Переселенец
+        09_dependent: Зависимый
+        10_old: Пожилой
+        11_others: другие
       source:
-        no_source: Не определен
-        direct_call: Прямой звонок
-        call_center: Кол-центр
-        volunteers: Волонтеры
-        no_commercial_org: Не коммерческие организации
-        commercial_org: Коммерческие организации
+        01_no_source: Не определен
+        02_direct_call: Прямой звонок
+        03_call_center: Кол-центр
+        04_volunteers: Волонтеры
+        05_no_commercial_org: Не коммерческие организации
+        06_commercial_org: Коммерческие организации
     client_service:
       status:
-        started: Инициирована
-        in_work: В работе
-        completed: Выполнена
+        01_started: Инициирована
+        02_in_work: В работе
+        03_completed: Выполнена
     performer:
       performer_type:
-        person: person
-        volontier: volontier
-        organization: organization
+        person: Частное лицо
+        volontier: Волонтер
+        organization: Организация

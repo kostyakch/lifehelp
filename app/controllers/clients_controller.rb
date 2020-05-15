@@ -41,6 +41,11 @@ class ClientsController < ApplicationController
     @client.destroy
   end
 
+  def search
+    @clients = Client.search_for(params[:q]).limit(100)
+    render partial: 'index.json', clients: @clients
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
