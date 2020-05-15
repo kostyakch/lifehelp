@@ -1,19 +1,15 @@
 <template>
-  <div>
-    <el-row>
-      <h2>Список клиентов</h2>
-      <el-button type="primary" plain @click="newClient()" class="bt-add">Добавить</el-button>
-    </el-row>
-
+  <el-row>
+    <h2>Список клиентов</h2>
+    <el-button type="primary" plain @click="newClient()" class="bt-add">Добавить</el-button>
     <ClientTable :clients="this.clients" />
-  </div>
+  </el-row>
 </template>
 
 <script>
-import ClientTable from "./_table.vue";
+import ClientTable from "./table.vue";
 
 export default {
-  name: "ClientList",
   components: { ClientTable },
   props: {
     clients: Array

@@ -101,7 +101,6 @@
 
 <script>
 export default {
-  name: "clientServiceForm",
   props: {
     client_service: Object
   },

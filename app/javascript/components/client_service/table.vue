@@ -47,6 +47,7 @@
 
 <script>
 export default {
+  name: "ClientTable",
   props: {
     client_services: Array
   },
