@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
   # default_url_options format: 'json'
 
   root 'clients#index'
