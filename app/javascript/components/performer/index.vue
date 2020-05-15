@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import PerformerTable from "./_table.vue";
+import PerformerTable from "./table.vue";
 
 export default {
   name: "PerformerList",

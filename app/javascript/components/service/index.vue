@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import ServiceTable from "./_table.vue";
+import ServiceTable from "./table.vue";
 
 export default {
   name: "ServiceList",

@@ -84,8 +84,15 @@
 
 <script>
 export default {
+  name: "ClientTable",
   props: {
     clients: Array
+  },
+  data() {
+    return {
+      tableData: this.clients,
+      i18n: I18n
+    };
   },
   methods: {
     deleteRow(index, rows, id) {
@@ -106,12 +113,6 @@ export default {
       var now = new Date();
       return parseInt(now.toISOString()) - parseInt(date);
     }
-  },
-  data() {
-    return {
-      tableData: this.clients,
-      i18n: I18n
-    };
   }
 };
 </script>
