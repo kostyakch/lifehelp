@@ -15,8 +15,14 @@ const destroy = clientId =>
     .delete(Routes.client_path(clientId))
     .then(response => response.data);
 
+const search = (query) =>
+  api
+    .get(Routes.search_clients_path({ q: query, format: 'json' }))
+    .then(response => response.data);
+
 export default {
   create,
   update,
-  destroy
+  destroy,
+  search
 }

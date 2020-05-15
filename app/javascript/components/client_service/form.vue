@@ -58,9 +58,7 @@
 
         <el-form-item label="Статус" prop="status">
           <el-radio-group v-model="form.status" size="mini">
-            <el-radio-button label="started" selected>Инициирована</el-radio-button>
-            <el-radio-button label="in_work">В работе</el-radio-button>
-            <el-radio-button label="completed">Выполнена</el-radio-button>
+            <el-radio-button v-for="(item, index) in statuses" :key="index" :label="index">{{ item }}</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
@@ -109,6 +107,7 @@ export default {
       formError: false,
       loading: false,
       form: this.client_service,
+      statuses: I18n.t("enums.client_service.status"),
       rules: {
         service_id: [
           { required: true, message: "Заполните поле", trigger: "blur" }
@@ -184,7 +183,6 @@ export default {
       if (query !== "") {
         this.loading = true;
         this.$api.performer.search(query).then(data => {
-          console.log(data);
           this.list = data.map(item => {
             return { value: item.id, label: item.fio };
           });
