@@ -4,8 +4,7 @@ class ClientsController < ApplicationController
 
   # GET /clients
   def index
-    # TODO: Chenge to Operation
-    @clients = Client.sorted.limit(100)
+    @clients = Client.sorted.page(params[:page])
   end
 
   # GET /clients/new
@@ -42,7 +41,7 @@ class ClientsController < ApplicationController
   end
 
   def search
-    @clients = Client.search_for(params[:q]).limit(100)
+    @clients = Client.search_for(params[:q]).limit(Kaminari.config.default_per_page)
     render partial: 'index.json', clients: @clients
   end
 

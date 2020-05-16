@@ -4,7 +4,7 @@ class ClientServicesController < ApplicationController
   # GET /client_services
   # GET /client_services.json
   def index
-    @client_services = ClientService.sorted.limit(100)
+    @client_services = ClientService.sorted.page(params[:page])
   end
 
   # GET /client_services/1
@@ -54,7 +54,8 @@ class ClientServicesController < ApplicationController
   end
 
   def search
-    @client_services = ClientService.search_for(params[:q]).limit(100)
+    @client_services = ClientService.search_for(params[:q])
+                                    .limit(Kaminari.config.default_per_page)
     render partial: 'index.json', client_services: @client_services
   end
 

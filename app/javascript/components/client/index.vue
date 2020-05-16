@@ -3,7 +3,7 @@
     <h2>Список клиентов</h2>
     <el-button type="primary" plain @click="newClient()" class="bt-add">Добавить</el-button>
 
-    <ClientTable :clients="this.clients" />
+    <ClientTable :clients="cliensData" :pagination="this.pagination" />
   </el-row>
 </template>
 
@@ -12,8 +12,15 @@ import ClientTable from "./table.vue";
 
 export default {
   components: { ClientTable },
+  template: ClientTable,
   props: {
-    clients: Array
+    clients: Array,
+    pagination: Object
+  },
+  data() {
+    return {
+      cliensData: this.clients
+    };
   },
   methods: {
     newClient() {

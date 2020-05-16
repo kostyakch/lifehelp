@@ -175,7 +175,6 @@ export default {
     submitForm() {
       const frm = this.$refs["clientForm"];
       frm.validate(valid => {
-        console.log(this.socials);
         if (valid) {
           if (this.client.id === null) {
             this.create(frm.model);

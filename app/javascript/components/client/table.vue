@@ -83,6 +83,15 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-pagination
+      background
+      @current-change="handleCurrentChange"
+      layout="prev, pager, next"
+      :total="this.pagination.total"
+      :page-size="this.pagination.per_page"
+      v-if="showPagination"
+    ></el-pagination>
   </el-row>
 </template>
 
@@ -93,11 +102,14 @@ export default {
   name: "ClientTable",
   components: { SearchBox },
   props: {
-    clients: Array
+    clients: Array,
+    callback: Function,
+    pagination: Object
   },
   data() {
     return {
       tableData: this.clients,
+      showPagination: this.pagination.total > this.pagination.per_page,
       i18n: I18n
     };
   },
@@ -122,7 +134,19 @@ export default {
     },
     callbackData(resp) {
       this.tableData = resp;
+      this.showPagination = resp.length === this.clients.length;
+    },
+    handleCurrentChange(val) {
+      this.$api.client.index({ page: val }).then(resp => {
+        this.tableData = resp;
+      });
     }
   }
 };
 </script>
+
+<style>
+.el-pagination {
+  margin-top: 20px;
+}
+</style>

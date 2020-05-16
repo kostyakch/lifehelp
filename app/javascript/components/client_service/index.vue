@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <h2>Оказанные услуги</h2>
-    <ClientTable :client_services="this.client_services" />
+    <ClientTable :client_services="this.client_services" :pagination="this.pagination" />
   </el-row>
 </template>
 
@@ -11,7 +11,8 @@ import ClientTable from "./table.vue";
 export default {
   components: { ClientTable },
   props: {
-    client_services: Array
+    client_services: Array,
+    pagination: Object
   }
 };
 </script>

@@ -1,5 +1,10 @@
 import api from './instance'
 
+const index = (params) =>
+  api
+    .get(Routes.client_services_path({ page: params.page, format: "json" }))
+    .then(response => response.data)
+
 const create = (params) =>
   api
     .post(Routes.client_services_path(), params)
@@ -21,6 +26,7 @@ const search = (query) =>
     .then(response => response.data);
 
 export default {
+  index,
   create,
   update,
   destroy,
