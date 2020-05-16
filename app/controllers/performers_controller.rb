@@ -5,7 +5,7 @@ class PerformersController < ApplicationController
   # GET /performers.json
   def index
     # TODO: Change limit to page
-    @performers = Performer.sorted.limit(100)
+    @performers = Performer.sorted.page(params[:page])
   end
 
   # GET /performers/new
@@ -45,9 +45,8 @@ class PerformersController < ApplicationController
   end
 
   def search
-    @performers = Performer.search_for(params[:q]).limit(50)
+    @performers = Performer.search_for(params[:q]).limit(Kaminari.config.default_per_page)
     render partial: 'index.json', performers: @performers
-    # render jbuilder: @services
   end
 
   private

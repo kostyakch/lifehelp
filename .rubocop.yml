@@ -31,8 +31,8 @@ Metrics/MethodLength:
     - 'app/controllers/api_controller.rb'
     - 'app/controllers/backoffice_controller.rb'
 
-Bundler/OrderedGems:
-  Enabled: false
+# Bundler/OrderedGems:
+#   Enabled: false
 
 Layout/EndOfLine:
   Enabled: false

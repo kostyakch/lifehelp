@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @services = Service.sorted.limit(100)
+    @services = Service.sorted.page(params[:page])
   end
 
   # GET /services/new
@@ -44,7 +44,7 @@ class ServicesController < ApplicationController
   end
 
   def search
-    @services = Service.search_for(params[:q]).limit(50)
+    @services = Service.search_for(params[:q]).limit(Kaminari.config.default_per_page)
     render json: @services
   end
 

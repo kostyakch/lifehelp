@@ -1,18 +1,23 @@
 import api from './instance'
 
-const create = (clientParams) =>
+const index = (params) =>
   api
-    .post(Routes.clients_path(), clientParams)
+    .get(Routes.clients_path({ page: params.page, format: "json" }))
     .then(response => response.data)
 
-const update = (clientParams) =>
+const create = (params) =>
   api
-    .put(Routes.client_path(clientParams.id), clientParams)
+    .post(Routes.clients_path(), params)
     .then(response => response.data)
 
-const destroy = clientId =>
+const update = (params) =>
   api
-    .delete(Routes.client_path(clientId))
+    .put(Routes.client_path(params.id), params)
+    .then(response => response.data)
+
+const destroy = id =>
+  api
+    .delete(Routes.client_path(id))
     .then(response => response.data);
 
 const search = (query) =>
@@ -21,6 +26,7 @@ const search = (query) =>
     .then(response => response.data);
 
 export default {
+  index,
   create,
   update,
   destroy,
