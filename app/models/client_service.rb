@@ -6,7 +6,7 @@ class ClientService < ApplicationRecord
   enum status: %i[01_started 02_in_work 03_completed]
 
   scope :sorted, lambda {
-                   includes(:client, :service)
+                   includes(:client, :service, :performer)
                      .reorder('client_services.started_at desc',
                               'clients.last_name asc')
                  }
