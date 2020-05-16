@@ -89,6 +89,7 @@ export default {
     },
     callbackData(resp) {
       this.tableData = resp;
+      this.showPagination = resp.length === this.client_services.length;
     },
     handleCurrentChange(val) {
       this.$api.client_service.index({ page: val }).then(resp => {

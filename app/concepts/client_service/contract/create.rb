@@ -16,10 +16,10 @@ module ClientService::Contract
     rule(:status) do
       next if value.blank?
 
-      if values[:finished_at].blank? && values[:status] == 'completed'
+      if values[:finished_at].blank? && values[:status] == '03_completed'
         values[:finished_at] = Time.current
       end
-      values[:finished_at] = nil unless values[:status] == 'completed'
+      values[:finished_at] = nil unless values[:status] == '03_completed'
     end
   end
 end
