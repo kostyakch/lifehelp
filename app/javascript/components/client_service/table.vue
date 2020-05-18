@@ -3,15 +3,11 @@
     <SearchBox @callback="callbackData" :api="this.$api.client_service" :collection="tableData" />
 
     <el-table :data="tableData" stripe style="width: 100%">
-      <el-table-column type="expand" :v-if="false">
+      <el-table-column type="expand">
         <template slot-scope="props">
           <el-row :gutter="20">
             <el-col :span="10">
-              <p>
-                <b>Исполнитель:</b>
-                {{ props.row.performer.fio }}
-              </p>
-              <p>
+              <p v-if="props.row.review.length > 0">
                 <b>Отзыв:</b>
                 {{ props.row.review }}
               </p>
@@ -21,8 +17,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="client.fio" sortable label="ФИО" min-width="160"></el-table-column>
-      <el-table-column prop="service.title" sortable label="Наименование" min-width="160"></el-table-column>
+      <el-table-column prop="client.fio" sortable label="Клиент" min-width="140"></el-table-column>
+      <el-table-column prop="performer.fio" sortable label="Исполнитель" min-width="140"></el-table-column>
+      <el-table-column prop="service.title" sortable label="Услуга" min-width="140"></el-table-column>
 
       <el-table-column sortable label="Статус">
         <template slot-scope="props">{{ i18n.t("enums.client_service.status."+props.row.status) }}</template>
