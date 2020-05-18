@@ -12,7 +12,7 @@ export default {
   name: "SearchBox",
   props: {
     callback: Function,
-    api: Object,
+    query: Object,
     collection: Array
   },
   data() {
@@ -28,9 +28,9 @@ export default {
       this.searchBtn = true;
       this.search = "";
     },
-    querySearch(query) {
-      if (query !== "") {
-        return this.api.search(query).then(resp => {
+    querySearch(queryStr) {
+      if (queryStr !== "") {
+        return this.query.search(queryStr).then(resp => {
           this.$emit("callback", resp);
           this.searchBtn = false;
         });

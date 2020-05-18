@@ -3,7 +3,7 @@
     <h2>Исполнители</h2>
     <el-button type="primary" plain @click="newRecord()" class="bt-add">Добавить</el-button>
 
-    <PerformerTable :performers="this.performers" />
+    <PerformerTable :performers="this.performers" :pagination="this.pagination" />
   </el-row>
 </template>
 
@@ -14,7 +14,8 @@ export default {
   name: "PerformerList",
   components: { PerformerTable },
   props: {
-    performers: Array
+    performers: Array,
+    pagination: Object
   },
   methods: {
     newRecord() {

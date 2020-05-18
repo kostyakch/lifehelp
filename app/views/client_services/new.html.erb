@@ -3,8 +3,8 @@
 
 <div class="vue-client-service-form" data-props="<%= props %>"></div>
 
-<% props2 = { client_services: serialize('index.json', 
-             client_services: @client_services) }.to_json %>
+<% props2 = { client_services: serialize('index.json', client_services: @client_services),
+              pagination: serialize('layouts/pagination.json', collection: @client_services) }.to_json %>
 
 <hr>
 <div class="vue-client-services" data-props="<%= props2 %>"></div>

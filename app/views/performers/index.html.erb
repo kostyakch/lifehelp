@@ -1,3 +1,4 @@
-<% props = { performers: serialize('index.json', performers: @performers) }.to_json %>
+<% props = { performers: serialize('index.json', performers: @performers),
+             pagination: serialize('layouts/pagination.json', collection: @performers) }.to_json %>
 
 <div class="vue-performers" data-props="<%= props %>"></div>

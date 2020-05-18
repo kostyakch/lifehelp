@@ -1,6 +1,10 @@
 <template>
   <el-row :gutter="20">
-    <SearchBox @callback="callbackData" :api="this.$api.client_service" :collection="tableData" />
+    <SearchBox
+      @callback="searchCallback"
+      :query="this.$api.client_service"
+      :collection="tableData"
+    />
 
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column type="expand">
@@ -44,23 +48,21 @@
       </el-table-column>
     </el-table>
 
-    <el-pagination
-      background
-      @current-change="handleCurrentChange"
-      layout="prev, pager, next"
-      :total="this.pagination.total"
-      :page-size="this.pagination.per_page"
-      v-if="showPagination"
-    ></el-pagination>
+    <Pagination
+      @callback="paginationCallback"
+      :query="this.$api.client_service"
+      :paginationObj="this.pagination"
+    />
   </el-row>
 </template>
 
 <script>
 import SearchBox from "../common/searchBox";
+import Pagination from "../common/pagination";
 
 export default {
   name: "ClientTable",
-  components: { SearchBox },
+  components: { SearchBox, Pagination },
   props: {
     client_services: Array,
     pagination: Object
@@ -84,14 +86,12 @@ export default {
           .catch(error => (this.formError = true));
       });
     },
-    callbackData(resp) {
+    searchCallback(resp) {
       this.tableData = resp;
       this.showPagination = resp.length === this.client_services.length;
     },
-    handleCurrentChange(val) {
-      this.$api.client_service.index({ page: val }).then(resp => {
-        this.tableData = resp;
-      });
+    paginationCallback(resp) {
+      this.tableData = resp;
     }
   }
 };

@@ -22,7 +22,10 @@ class ClientServicesController < ApplicationController
   end
 
   # GET /client_services/1/edit
-  def edit; end
+  def edit
+    @client_services = ClientService.by_client(@client_service.client_id)
+                                    .sorted.page(params[:page])
+  end
 
   # POST /client_services
   # POST /client_services.json
