@@ -13,10 +13,11 @@ class ClientService < ApplicationRecord
   scope :by_client, ->(client_id) { includes(:client).where(client_id: client_id) }
   scope :search_for, lambda { |query|
     includes(:client, :service, :performer)
-      .references(:client, :service)
+      .references(:client, :service, :performer)
       .where("CONCAT_WS(' ', clients.last_name, clients.first_name,
-      clients.middle_name) ILIKE :q OR services.title ILIKE :q",
-             q: "%#{query&.squish}%")
+      clients.middle_name) ILIKE :q OR services.title ILIKE :q OR
+      CONCAT_WS(' ', performers.last_name, performers.first_name,
+      performers.middle_name) ILIKE :q", q: "%#{query&.squish}%")
   }
 end
 

@@ -18,7 +18,7 @@ class ClientServicesController < ApplicationController
       started_at: Time.current
     )
     @client_services = ClientService.by_client(params[:client_id])
-                                    .sorted.limit(100)
+                                    .sorted.page(params[:page])
   end
 
   # GET /client_services/1/edit
