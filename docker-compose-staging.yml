@@ -1,0 +1,65 @@
+version: "3.2"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: lifehelp-staging
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db/lifehelp_development
+      TZ: Europe/Moscow
+      REDIS_HOST: redis
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: 'true'
+    volumes:
+      - nfsmount:/usr/src/app
+      - ./volumes/backend/log:/usr/src/app/log
+      - ./volumes/backend/tmp:/usr/src/app/tmp
+
+      # - ./volumes/backend/config/credentials.yml.enc:/usr/src/app/config/credentials.yml.enc
+      # - ./volumes/backend/config/master.key:/usr/src/app/config/master.key
+
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    tty: true
+    stdin_open: true
+    entrypoint: /usr/src/app/entrypoint.prod.sh
+    command: /usr/src/app/docker_command.sh
+
+  db:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./volumes/postgres/data:/var/lib/postgresql/data
+      - ./volumes/postgres/dump:/docker-entrypoint-initdb.d
+
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - 8081:80
+    depends_on:
+      - backend
+    volumes:
+      - nfsmount:/usr/src/app/
+      - ./volumes/nginx/logs:/var/log/nginx
+
+volumes:
+  nfsmount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":${LIFEHELP_SOURCE_DIR}"
+
+# volumes:
+#   data-volume:

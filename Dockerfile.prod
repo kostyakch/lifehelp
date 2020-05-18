@@ -1,24 +1,23 @@
 FROM ruby:2.6-alpine
 
+ENV RAILS_ENV production
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install deps
-RUN apk add --no-cache --virtual .build-deps bash git less openssh-client build-base \
+RUN apk add --no-cache --virtual .build-deps bash less build-base \
     linux-headers nodejs postgresql-dev postgresql-client yarn && \
     apk add --update tzdata yarn && \
     rm -rf /var/cache/apk/*
 
-# RUN gem install bundler -v 2.0.1 && \
-#     gem install mini_magick
-RUN gem install bundler
-
+# Install bundler
 COPY Gemfile* /usr/src/app/
-COPY package.json /usr/src/app
-COPY yarn.lock /usr/src/app
+RUN gem install bundler && bundle config --local deployment true && \
+    bundle config --local without "development test" && \
+    bundle install --jobs 4
 
-RUN bundle install && yarn install
-
+# Copy all files
 COPY . /usr/src/app
 
 ENV PATH="/usr/src/app/bin:${PATH}"
