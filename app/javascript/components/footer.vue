@@ -1,5 +1,5 @@
 <template>
-  <p>&copy; Rhino</p>
+  <p>&copy; KCh</p>
 </template>
 <style>
 .el-footer {

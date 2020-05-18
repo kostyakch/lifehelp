@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20">
-    <SearchBox @callback="callbackData" :api="this.$api.client" :collection="tableData" />
+    <SearchBox @callback="searchCallback" :query="this.$api.client" :collection="tableData" />
 
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column type="expand">
@@ -84,23 +84,21 @@
       </el-table-column>
     </el-table>
 
-    <el-pagination
-      background
-      @current-change="handleCurrentChange"
-      layout="prev, pager, next"
-      :total="this.pagination.total"
-      :page-size="this.pagination.per_page"
-      v-if="showPagination"
-    ></el-pagination>
+    <Pagination
+      @callback="paginationCallback"
+      :query="this.$api.client"
+      :paginationObj="this.pagination"
+    />
   </el-row>
 </template>
 
 <script>
 import SearchBox from "../common/searchBox";
+import Pagination from "../common/pagination";
 
 export default {
   name: "ClientTable",
-  components: { SearchBox },
+  components: { SearchBox, Pagination },
   props: {
     clients: Array,
     callback: Function,
@@ -109,7 +107,6 @@ export default {
   data() {
     return {
       tableData: this.clients,
-      showPagination: this.pagination.total > this.pagination.per_page,
       i18n: I18n
     };
   },
@@ -132,14 +129,12 @@ export default {
       var now = new Date();
       return parseInt(now.toISOString()) - parseInt(date);
     },
-    callbackData(resp) {
+    searchCallback(resp) {
       this.tableData = resp;
       this.showPagination = resp.length === this.clients.length;
     },
-    handleCurrentChange(val) {
-      this.$api.client.index({ page: val }).then(resp => {
-        this.tableData = resp;
-      });
+    paginationCallback(resp) {
+      this.tableData = resp;
     }
   }
 };

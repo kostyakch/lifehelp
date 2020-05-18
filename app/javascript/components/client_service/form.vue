@@ -100,7 +100,8 @@
 <script>
 export default {
   props: {
-    client_service: Object
+    client_service: Object,
+    pagination: Object
   },
   data() {
     return {

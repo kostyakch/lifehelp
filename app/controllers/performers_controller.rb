@@ -4,7 +4,6 @@ class PerformersController < ApplicationController
   # GET /performers
   # GET /performers.json
   def index
-    # TODO: Change limit to page
     @performers = Performer.sorted.page(params[:page])
   end
 
