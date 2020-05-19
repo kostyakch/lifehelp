@@ -13,12 +13,20 @@ RUN apk add --no-cache --virtual .build-deps bash less build-base \
 
 # Install bundler
 COPY Gemfile* /usr/src/app/
+
 RUN gem install bundler && bundle config --local deployment true && \
     bundle config --local without "development test" && \
     bundle install --jobs 4
 
 # Copy all files
 COPY . /usr/src/app
+
+RUN bundle exec rake assets:precompile && \
+    rm -f config/master.key && \
+    rm -rf /usr/src/app/node_modules
+
+COPY public/assets/* /usr/src/app/public/assets/
+COPY public/packs/* /usr/src/app/public/packs/
 
 ENV PATH="/usr/src/app/bin:${PATH}"
 
