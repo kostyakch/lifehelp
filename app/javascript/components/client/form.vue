@@ -30,12 +30,17 @@
         <el-form-item label="Контактные данные">
           <el-col :span="8">
             <el-form-item prop="phone">
-              <el-input v-model.trim="form.phone" type="number" placeholder="Телефон"></el-input>
+              <el-input
+                v-model="form.phone"
+                placeholder="+7 (###) ###-####"
+                v-mask="'+# (###) ###-####'"
+                clearable
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item prop="email">
-              <el-input v-model.trim="form.email" placeholder="E-Mail"></el-input>
+              <el-input v-model.trim="form.email" placeholder="E-Mail" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -44,7 +49,8 @@
                 v-model.trim="form.dob"
                 type="date"
                 format="dd.MM.yyyy"
-                placeholder="Рождение"
+                placeholder="Дата рождения"
+                clearable
               ></el-date-picker>
             </el-form-item>
           </el-col>
@@ -90,7 +96,7 @@
         </el-form-item>
 
         <el-form-item label="Город" prop="city">
-          <el-input v-model="form.city"></el-input>
+          <el-input v-model="form.city" value="Ставрополь"></el-input>
         </el-form-item>
         <el-form-item label="Район" prop="area">
           <el-input v-model="form.area"></el-input>
@@ -113,9 +119,18 @@
 </template>
 
 <script>
+import Inputmask from "inputmask";
+
 export default {
   props: {
     client: Object
+  },
+  directives: {
+    mask: {
+      bind: function(el, binding) {
+        Inputmask(binding.value).mask(el.getElementsByTagName("INPUT")[0]);
+      }
+    }
   },
   data() {
     return {
@@ -150,15 +165,14 @@ export default {
         email: [
           {
             type: "email",
-            message: "Введите валидный E-mail",
+            message: "Введите корректный E-mail",
             trigger: "blur"
           }
         ],
         phone: [
           {
-            min: 5,
-            max: 11,
-            message: "Введите валидный телефон",
+            min: 11,
+            message: "Введите корректный номер",
             trigger: "blur"
           }
         ]
