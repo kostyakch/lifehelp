@@ -1,7 +1,5 @@
 <template>
   <el-row :gutter="20">
-    <SearchBox @callback="searchCallback" :query="this.$api.service" :collection="tableData" />
-
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="title" sortable label="Заголовок"></el-table-column>
       <el-table-column prop="quantity" label="Количество"></el-table-column>
@@ -23,19 +21,10 @@
 </template>
 
 <script>
-import SearchBox from "../common/searchBox";
-
 export default {
   name: "ServiceTable",
-  components: { SearchBox },
   props: {
-    services: Array
-  },
-  data() {
-    return {
-      tableData: this.services,
-      showPagination: true
-    };
+    tableData: Array
   },
   methods: {
     deleteRow(index, rows, id) {
@@ -48,10 +37,6 @@ export default {
     },
     editService(id) {
       location.replace(Routes.edit_service_path(id));
-    },
-    searchCallback(resp) {
-      this.tableData = resp;
-      this.showPagination = resp.length === this.services.length;
     }
   }
 };

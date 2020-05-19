@@ -1,10 +1,12 @@
 <template>
-  <el-col :span="5">
-    <el-input size="mini" placeholder="Поиск" v-model="search" @change="querySearch">
-      <el-button slot="append" icon="el-icon-search" v-if="searchBtn"></el-button>
-      <el-button slot="append" icon="el-icon-close" @click="clearSearsh" v-else></el-button>
-    </el-input>
-  </el-col>
+  <el-row>
+    <el-col :span="5">
+      <el-input size="mini" placeholder="Поиск" v-model="search" @change="querySearch">
+        <el-button slot="append" icon="el-icon-search" v-if="searchBtn"></el-button>
+        <el-button slot="append" icon="el-icon-close" @click="clearSearsh" v-else></el-button>
+      </el-input>
+    </el-col>
+  </el-row>
 </template>
 
 <script>

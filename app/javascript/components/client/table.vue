@@ -1,7 +1,5 @@
 <template>
   <el-row :gutter="20">
-    <SearchBox @callback="searchCallback" :query="this.$api.client" :collection="tableData" />
-
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -83,30 +81,17 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <Pagination
-      @callback="paginationCallback"
-      :query="this.$api.client"
-      :paginationObj="this.pagination"
-    />
   </el-row>
 </template>
 
 <script>
-import SearchBox from "../common/searchBox";
-import Pagination from "../common/pagination";
-
 export default {
   name: "ClientTable",
-  components: { SearchBox, Pagination },
   props: {
-    clients: Array,
-    callback: Function,
-    pagination: Object
+    tableData: Array
   },
   data() {
     return {
-      tableData: this.clients,
       i18n: I18n
     };
   },
@@ -128,13 +113,6 @@ export default {
       if (date === "") return;
       var now = new Date();
       return parseInt(now.toISOString()) - parseInt(date);
-    },
-    searchCallback(resp) {
-      this.tableData = resp;
-      this.showPagination = resp.length === this.clients.length;
-    },
-    paginationCallback(resp) {
-      this.tableData = resp;
     }
   }
 };

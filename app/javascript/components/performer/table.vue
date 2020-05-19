@@ -1,7 +1,5 @@
 <template>
   <el-row :gutter="20">
-    <SearchBox @callback="searchCallback" :query="this.$api.performer" :collection="tableData" />
-
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="fio" sortable label="ФИО" :min-width="160"></el-table-column>
       <el-table-column prop="phone" label="Телефон"></el-table-column>
@@ -25,30 +23,17 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <Pagination
-      @callback="paginationCallback"
-      :query="this.$api.performer"
-      :paginationObj="this.pagination"
-    />
   </el-row>
 </template>
 
 <script>
-import SearchBox from "../common/searchBox";
-import Pagination from "../common/pagination";
-
 export default {
   name: "PerformerTable",
-  components: { SearchBox, Pagination },
   props: {
-    performers: Array,
-    pagination: Object
+    tableData: Array
   },
   data() {
     return {
-      tableData: this.performers,
-      showPagination: this.pagination.total > this.pagination.per_page,
       i18n: I18n
     };
   },
@@ -63,13 +48,6 @@ export default {
     },
     editRecord(id) {
       location.replace(Routes.edit_performer_path(id));
-    },
-    searchCallback(resp) {
-      this.tableData = resp;
-      this.showPagination = resp.length === this.performers.length;
-    },
-    paginationCallback(resp) {
-      this.tableData = resp;
     }
   }
 };
