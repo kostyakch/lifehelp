@@ -24,19 +24,19 @@ end
 #  first_name     :string           not null
 #  last_name      :string           not null
 #  middle_name    :string
-#  phone          :string
+#  phone          :bigint(8)
 #  email          :string
 #  dob            :date
 #  city           :string
 #  address        :string
 #  area           :string
 #  description    :string
-#  client_type    :integer          default("person"), not null
+#  client_type    :integer          default("01_person"), not null
 #  code           :integer          default("A"), not null
-#  objectivity    :integer          default("is_not_clear"), not null
-#  marital_status :integer          default("no_ms"), not null
-#  social_status  :integer          default("no_ss"), not null
-#  source         :integer          default("no_source"), not null
+#  objectivity    :integer          default("01_is_not_clear"), not null
+#  marital_status :integer          default("01_no_ms"), not null
+#  social_status  :integer          default("01_no_ss"), not null
+#  source         :integer          default("01_no_source"), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #

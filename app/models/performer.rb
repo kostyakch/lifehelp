@@ -1,4 +1,5 @@
 class Performer < ApplicationRecord
+  include Phonable
   enum performer_type: %i[person volontier organization]
 
   scope :sorted, -> { reorder(last_name: :asc, first_name: :asc) }
@@ -17,7 +18,7 @@ end
 #  last_name      :string           not null
 #  middle_name    :string
 #  performer_type :integer          default("person"), not null
-#  phone          :string           not null
+#  phone          :bigint(8)        not null
 #  email          :string
 #  address        :string
 #  description    :string

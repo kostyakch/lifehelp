@@ -28,7 +28,11 @@
         <el-form-item label="Контактные данные">
           <el-col :span="10">
             <el-form-item prop="phone">
-              <el-input v-model.trim="form.phone" type="number" placeholder="Телефон"></el-input>
+              <el-input
+                v-model="form.phone"
+                placeholder="+7 (###) ###-####"
+                v-mask="'+# (###) ###-####'"
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="10">
@@ -63,10 +67,19 @@
 </template>
 
 <script>
+import Inputmask from "inputmask";
+
 export default {
   name: "performerForm",
   props: {
     performer: Object
+  },
+  directives: {
+    mask: {
+      bind: function(el, binding) {
+        Inputmask(binding.value).mask(el.getElementsByTagName("INPUT")[0]);
+      }
+    }
   },
   data() {
     return {
@@ -100,7 +113,7 @@ export default {
         email: [
           {
             type: "email",
-            message: "Введите валидный E-mail",
+            message: "Введите корректный E-mail",
             trigger: "blur"
           }
         ],
@@ -111,9 +124,8 @@ export default {
             trigger: "blur"
           },
           {
-            min: 5,
-            max: 11,
-            message: "Введите валидный телефон",
+            min: 11,
+            message: "Введите корректный номер",
             trigger: "blur"
           }
         ]

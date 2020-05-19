@@ -28,7 +28,7 @@ end
 #  id           :uuid             not null, primary key
 #  client_id    :bigint(8)        not null
 #  service_id   :uuid             not null
-#  status       :integer          default("started"), not null
+#  status       :integer          default("01_started"), not null
 #  started_at   :datetime         not null
 #  finished_at  :datetime
 #  review       :string

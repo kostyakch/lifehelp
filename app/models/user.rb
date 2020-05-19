@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Phonable
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # , :registerable, :recoverable, :rememberable, :validatable
@@ -15,7 +17,7 @@ end
 #  first_name             :string           not null
 #  last_name              :string           not null
 #  middle_name            :string
-#  phone                  :string
+#  phone                  :bigint(8)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  email                  :string           default(""), not null
