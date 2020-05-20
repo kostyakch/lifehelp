@@ -17,7 +17,8 @@ class Client < ApplicationRecord
   scope :sorted, -> { reorder(last_name: :asc, first_name: :asc) }
   scope :search_for, lambda { |query|
     where("CONCAT_WS(' ', clients.last_name, clients.first_name,
-      clients.middle_name) ILIKE :q OR clients.city ILIKE :q OR clients.phone ILIKE :q",
+      clients.middle_name) ILIKE :q OR clients.city ILIKE :q 
+      OR clients.phone::varchar ILIKE :q OR clients.dob::varchar ILIKE :q",
           q: "%#{query&.squish}%")
   }
 end

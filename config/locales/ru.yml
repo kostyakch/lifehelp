@@ -35,8 +35,8 @@ ru:
   errors:
     contract:
       abstract:
-        valid_phone: Invalid phone number
-        not_valid_email: Invalid email
+        valid_phone: Не правильный формат или телефон не существует
+        not_valid_email: Не правильный формат
 
   enums:
     client:

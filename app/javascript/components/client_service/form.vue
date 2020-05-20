@@ -1,22 +1,22 @@
 <template>
   <el-row :gutter="20">
+    <el-col :span="16" :offset="4">
+      <h2 v-if="form.id === null">Добавление услуги для: {{ form.client.fio }}</h2>
+      <h2 v-else>Редактирование {{ form.title }}</h2>
+
+      <el-alert
+        v-if="formError"
+        title="Ошибка при сохранении данных"
+        type="error"
+        :description="errorDescr"
+        :closable="false"
+      ></el-alert>
+      <br />
+    </el-col>
+
     <el-col :span="16" :offset="2">
       <el-form :model="form" :rules="rules" ref="clientServiceForm" label-width="180px">
-        <center>
-          <h2 v-if="form.id === null">Добавление услуги для: {{ form.client.fio }}</h2>
-          <h2 v-else>Редактирование {{ form.title }}</h2>
-        </center>
-
         <el-input type="hidden" v-model="form.client_id"></el-input>
-
-        <el-form-item label>
-          <el-alert
-            v-if="formError"
-            title="Ошибка при сохранении данных"
-            type="error"
-            :closable="false"
-          ></el-alert>
-        </el-form-item>
 
         <el-form-item label="Наименование услуги" prop="service_id">
           <el-select
@@ -58,7 +58,11 @@
 
         <el-form-item label="Статус" prop="status">
           <el-radio-group v-model="form.status" size="mini">
-            <el-radio-button v-for="(item, index) in statuses" :key="index" :label="index">{{ item }}</el-radio-button>
+            <el-radio-button
+              v-for="(item, index) in statuses"
+              :key="index"
+              :label="index"
+            >{{ item }}</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
@@ -106,6 +110,7 @@ export default {
   data() {
     return {
       formError: false,
+      errorDescr: "",
       loading: false,
       form: this.client_service,
       statuses: I18n.t("enums.client_service.status"),
@@ -153,13 +158,19 @@ export default {
       this.$api.client_service
         .create(model)
         .then(service => location.replace(Routes.client_services_path()))
-        .catch(error => (this.formError = true));
+        .catch(error => {
+          this.errorDescr = error.response.data;
+          this.formError = true;
+        });
     },
     update(model) {
       this.$api.client_service
         .update(model)
         .then(service => location.replace(Routes.client_services_path()))
-        .catch(error => (this.formError = true));
+        .catch(error => {
+          this.errorDescr = error.response.data;
+          this.formError = true;
+        });
     },
     searchServices(query) {
       if (query !== "") {

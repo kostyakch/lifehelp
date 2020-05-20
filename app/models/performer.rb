@@ -5,7 +5,8 @@ class Performer < ApplicationRecord
   scope :sorted, -> { reorder(last_name: :asc, first_name: :asc) }
   scope :search_for, lambda { |query|
     where("CONCAT_WS(' ', performers.last_name, performers.first_name,
-      performers.middle_name) ILIKE :q", q: "%#{query&.squish}%")
+      performers.middle_name) ILIKE :q OR performers.phone::varchar ILIKE :q",
+          q: "%#{query&.squish}%")
   }
 end
 

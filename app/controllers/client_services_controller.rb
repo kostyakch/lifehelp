@@ -34,7 +34,7 @@ class ClientServicesController < ApplicationController
     if operation.success?
       render json: operation.value!, status: :created
     else
-      render json: operation.failure, status: :unprocessable_entity
+      render json: errors_to_s(operation.failure), status: :unprocessable_entity
     end
   end
 
@@ -46,7 +46,7 @@ class ClientServicesController < ApplicationController
     if operation.success?
       render json: operation.value!, status: :ok
     else
-      render json: operation.failure, status: :unprocessable_entity
+      render json: errors_to_s(operation.failure), status: :unprocessable_entity
     end
   end
 

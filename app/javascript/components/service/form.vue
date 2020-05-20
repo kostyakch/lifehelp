@@ -1,20 +1,21 @@
 <template>
   <el-row :gutter="20">
+    <el-col :span="16" :offset="4">
+      <h2 v-if="form.id === null">Добавление услуги</h2>
+      <h2 v-else>Редактирование {{ form.title }}</h2>
+
+      <el-alert
+        v-if="formError"
+        title="Ошибка при сохранении данных"
+        type="error"
+        :description="errorDescr"
+        :closable="false"
+      ></el-alert>
+      <br />
+    </el-col>
+
     <el-col :span="16" :offset="2">
       <el-form :model="form" :rules="rules" ref="serviceForm" label-width="180px">
-        <center>
-          <h2 v-if="form.id === null">Добавление услуги</h2>
-          <h2 v-else>Редактирование {{ form.title }}</h2>
-        </center>
-
-        <el-form-item label>
-          <el-alert
-            v-if="formError"
-            title="Ошибка при сохранении данных"
-            type="error"
-            :closable="false"
-          ></el-alert>
-        </el-form-item>
         <el-form-item label="Наименование услуги" prop="title">
           <el-input v-model="form.title"></el-input>
         </el-form-item>
@@ -42,6 +43,7 @@ export default {
   data() {
     return {
       formError: false,
+      errorDescr: "",
       form: this.service,
       rules: {
         title: [
@@ -79,13 +81,19 @@ export default {
       this.$api.service
         .create(model)
         .then(service => location.replace(Routes.services_path()))
-        .catch(error => (this.formError = true));
+        .catch(error => {
+          this.errorDescr = error.response.data;
+          this.formError = true;
+        });
     },
     update(model) {
       this.$api.service
         .update(model)
         .then(service => location.replace(Routes.services_path()))
-        .catch(error => (this.formError = true));
+        .catch(error => {
+          this.errorDescr = error.response.data;
+          this.formError = true;
+        });
     }
   }
 };

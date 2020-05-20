@@ -20,3 +20,8 @@ ru:
         marital_status: Материальный статус
         social_status: Социальный статус
         source: Источник данных
+    # errors:
+    #   client:
+    #     phone:
+    #       format: имеет не правильный формат
+    #       invalid: имеет не правильный формат 123
