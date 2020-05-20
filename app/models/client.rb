@@ -13,11 +13,12 @@ class Client < ApplicationRecord
                   05_no_commercial_org 06_commercial_org]
 
   validates :first_name, :last_name, uniqueness: { scope: %i[dob] }
+  validates :phone, uniqueness: true, allow_blank: true
 
   scope :sorted, -> { reorder(last_name: :asc, first_name: :asc) }
   scope :search_for, lambda { |query|
     where("CONCAT_WS(' ', clients.last_name, clients.first_name,
-      clients.middle_name) ILIKE :q OR clients.city ILIKE :q 
+      clients.middle_name) ILIKE :q OR clients.city ILIKE :q
       OR clients.phone::varchar ILIKE :q OR clients.dob::varchar ILIKE :q",
           q: "%#{query&.squish}%")
   }

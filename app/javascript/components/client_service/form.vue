@@ -1,8 +1,11 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="16" :offset="4">
-      <h2 v-if="form.id === null">Добавление услуги для: {{ form.client.fio }}</h2>
-      <h2 v-else>Редактирование {{ form.title }}</h2>
+      <h2>
+        <span v-if="form.id === null">Добавление</span>
+        <span v-else>Редактирование</span>
+        услуги для: {{ form.client.fio }}
+      </h2>
 
       <el-alert
         v-if="formError"
