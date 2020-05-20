@@ -12,6 +12,8 @@ class Client < ApplicationRecord
   enum source: %i[01_no_source 02_direct_call 03_call_center 04_volunteers
                   05_no_commercial_org 06_commercial_org]
 
+  validates :first_name, :last_name, uniqueness: { scope: %i[dob] }
+
   scope :sorted, -> { reorder(last_name: :asc, first_name: :asc) }
   scope :search_for, lambda { |query|
     where("CONCAT_WS(' ', clients.last_name, clients.first_name,
@@ -43,4 +45,9 @@ end
 #  source         :integer          default("01_no_source"), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#
+# Indexes
+#
+#  index_clients_on_first_name_and_last_name_and_dob  (first_name,last_name,dob) UNIQUE
+#  index_clients_on_phone                             (phone) UNIQUE
 #
