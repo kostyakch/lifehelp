@@ -5,9 +5,8 @@ class ApplicationController < ActionController::Base
   private
 
   def errors_to_s(failure)
-    
-    binding.pry
-    
+    return failure if failure.is_a?(ActiveRecord::RecordInvalid)
+
     failure.values.join(' ')
   end
 

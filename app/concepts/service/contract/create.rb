@@ -3,8 +3,8 @@ module Service::Contract
     params do
       required(:title).filled(:string)
 
-      optional(:quantity).value(:integer)
-      optional(:description).value(:string)
+      optional(:quantity).maybe(:int?)
+      optional(:description).maybe(:str?)
     end
   end
 end

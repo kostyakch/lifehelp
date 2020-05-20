@@ -4,6 +4,6 @@ ru:
       service: Услуга
     attributes:
       service:
-        title: Заголовок
+        title: Наименование услуги
         quantity: Количество
         description: Описание

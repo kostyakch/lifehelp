@@ -1,8 +1,11 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="16" :offset="4">
-      <h2 v-if="form.id === null">Добавление исполнителя</h2>
-      <h2 v-else>Редактирование {{ form.fio }}</h2>
+      <h2>
+        <span v-if="form.id === null">Добавление исполнителя</span>
+        <span v-else>Редактирование</span>
+        {{ form.last_name }} {{ form.first_name }} {{ form.middle_name }}
+      </h2>
 
       <el-alert
         v-if="formError"

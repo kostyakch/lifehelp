@@ -2,8 +2,8 @@
   <el-row :gutter="20">
     <el-col :span="16" :offset="4">
       <h2>
-        <span v-if="form.id === null">Добавление клиента </span>
-        <span v-else>Редактирование </span>
+        <span v-if="form.id === null">Добавление клиента</span>
+        <span v-else>Редактирование</span>
         {{ form.last_name }} {{ form.first_name }} {{ form.middle_name }}
       </h2>
 
