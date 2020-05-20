@@ -1,22 +1,24 @@
 <template>
   <el-row :gutter="20">
+    <el-col :span="16" :offset="4">
+      <h2>
+        <span v-if="form.id === null">Добавление клиента </span>
+        <span v-else>Редактирование </span>
+        {{ form.last_name }} {{ form.first_name }} {{ form.middle_name }}
+      </h2>
+
+      <el-alert
+        v-if="formError"
+        title="Ошибка при сохранении данных"
+        type="error"
+        :description="errorDescr"
+        :closable="false"
+      ></el-alert>
+      <br />
+    </el-col>
+
     <el-col :span="16" :offset="2">
       <el-form :model="form" :rules="rules" ref="clientForm" label-width="180px">
-        <center>
-          <h2 v-if="form.id === null">Добавление клиента</h2>
-          <h2
-            v-else
-          >Редактирование {{ form.last_name }} {{ form.first_name }} {{ form.middle_name }}</h2>
-        </center>
-
-        <el-form-item label>
-          <el-alert
-            v-if="formError"
-            title="Ошибка при сохранении данных"
-            type="error"
-            :closable="false"
-          ></el-alert>
-        </el-form-item>
         <el-form-item label="Фамилия" prop="last_name">
           <el-input v-model.trim="form.last_name"></el-input>
         </el-form-item>
@@ -49,6 +51,7 @@
                 v-model.trim="form.dob"
                 type="date"
                 format="dd.MM.yyyy"
+                v-mask="'##.##.####'"
                 placeholder="Дата рождения"
                 clearable
               ></el-date-picker>
@@ -135,6 +138,7 @@ export default {
   data() {
     return {
       formError: false,
+      errorDescr: "",
       form: this.client,
       i18n: I18n,
       rules: {
@@ -168,13 +172,6 @@ export default {
             message: "Введите корректный E-mail",
             trigger: "blur"
           }
-        ],
-        phone: [
-          {
-            min: 11,
-            message: "Введите корректный номер",
-            trigger: "blur"
-          }
         ]
       },
       maritals: I18n.t("enums.client.marital_status"),
@@ -205,13 +202,19 @@ export default {
       this.$api.client
         .create(model)
         .then(client => location.replace(Routes.clients_path()))
-        .catch(error => (this.formError = true));
+        .catch(error => {
+          this.errorDescr = error.response.data;
+          this.formError = true;
+        });
     },
     update(model) {
       this.$api.client
         .update(model)
         .then(client => location.replace(Routes.clients_path()))
-        .catch(error => (this.formError = true));
+        .catch(error => {
+          this.errorDescr = error.response.data;
+          this.formError = true;
+        });
     }
   }
 };

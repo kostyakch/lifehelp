@@ -1,20 +1,21 @@
 <template>
   <el-row :gutter="20">
+    <el-col :span="16" :offset="4">
+      <h2 v-if="form.id === null">Добавление исполнителя</h2>
+      <h2 v-else>Редактирование {{ form.fio }}</h2>
+
+      <el-alert
+        v-if="formError"
+        title="Ошибка при сохранении данных"
+        type="error"
+        :description="errorDescr"
+        :closable="false"
+      ></el-alert>
+      <br />
+    </el-col>
+
     <el-col :span="16" :offset="2">
       <el-form :model="form" :rules="rules" ref="performerForm" label-width="180px">
-        <center>
-          <h2 v-if="form.id === null">Добавление исполнителя</h2>
-          <h2 v-else>Редактирование {{ form.fio }}</h2>
-        </center>
-
-        <el-form-item label>
-          <el-alert
-            v-if="formError"
-            title="Ошибка при сохранении данных"
-            type="error"
-            :closable="false"
-          ></el-alert>
-        </el-form-item>
         <el-form-item label="Фамилия" prop="last_name">
           <el-input v-model.trim="form.last_name"></el-input>
         </el-form-item>
@@ -84,6 +85,7 @@ export default {
   data() {
     return {
       formError: false,
+      errorDescr: "",
       form: this.performer,
       rules: {
         first_name: [
@@ -152,13 +154,19 @@ export default {
       this.$api.performer
         .create(model)
         .then(service => location.replace(Routes.performers_path()))
-        .catch(error => (this.formError = true));
+        .catch(error => {
+          this.errorDescr = error.response.data;
+          this.formError = true;
+        });
     },
     update(model) {
       this.$api.performer
         .update(model)
         .then(service => location.replace(Routes.performers_path()))
-        .catch(error => (this.formError = true));
+        .catch(error => {
+          this.errorDescr = error.response.data;
+          this.formError = true;
+        });
     }
   }
 };

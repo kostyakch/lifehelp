@@ -3,9 +3,9 @@
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-row :gutter="20">
+          <el-row :gutter="20" v-if="props.row.review !== null">
             <el-col :span="10">
-              <p v-if="props.row.review.length > 0">
+              <p>
                 <b>Отзыв:</b>
                 {{ props.row.review }}
               </p>

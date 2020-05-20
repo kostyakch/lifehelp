@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_181625) do
+ActiveRecord::Schema.define(version: 2020_05_20_181537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_181625) do
     t.integer "source", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["first_name", "last_name", "dob"], name: "index_clients_on_first_name_and_last_name_and_dob", unique: true
+    t.index ["phone"], name: "index_clients_on_phone", unique: true
   end
 
   create_table "performers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
