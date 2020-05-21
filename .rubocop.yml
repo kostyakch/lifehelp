@@ -15,9 +15,6 @@ Bundler:
 Metrics/AbcSize:
   Exclude:
     - 'db/migrate/*'
-    - 'app/controllers/api_controller.rb'
-    - 'app/controllers/backoffice_controller.rb'
-    - 'app/controllers/concerns/import_employees_from_csv.rb'
 
 Metrics/LineLength:
   Max: 100
@@ -28,11 +25,6 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Exclude:
     - 'db/migrate/*'
-    - 'app/controllers/api_controller.rb'
-    - 'app/controllers/backoffice_controller.rb'
-
-# Bundler/OrderedGems:
-#   Enabled: false
 
 Layout/EndOfLine:
   Enabled: false
@@ -67,12 +59,10 @@ RSpec/MultipleExpectations:
   Exclude:
     - 'spec/systems/**/*'
     - 'spec/requests/**/*'
-    - 'spec/controllers/api/**/*'
 
 RSpec/ExampleLength:
   Exclude:
     - 'spec/systems/**/*'
-    - 'spec/controllers/api/**/*'
 
 RSpec/AnyInstance:
   Exclude:

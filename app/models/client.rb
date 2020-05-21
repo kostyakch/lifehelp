@@ -15,13 +15,26 @@ class Client < ApplicationRecord
   validates :first_name, :last_name, uniqueness: { scope: %i[dob] }
   validates :phone, uniqueness: true, allow_blank: true
 
-  scope :sorted, -> { reorder(last_name: :asc, first_name: :asc) }
+  scope :sorted, -> { order(last_name: :asc, first_name: :asc) }
   scope :search_for, lambda { |query|
     where("CONCAT_WS(' ', clients.last_name, clients.first_name,
       clients.middle_name) ILIKE :q OR clients.city ILIKE :q
       OR clients.phone::varchar ILIKE :q OR clients.dob::varchar ILIKE :q",
           q: "%#{query&.squish}%")
   }
+
+  # Sort scopes
+  scope :sort_by_column, ->(columns, order) { reorder("#{columns} #{order_normalizer(order)}") }
+  scope :sort_by_fio, ->(order) { sort_by_column('last_name', order) }
+  scope :sort_by_dob, ->(order) { sort_by_column('dob', order) }
+  scope :sort_by_updated_at, ->(order) { sort_by_column('updated_at', order) }
+  scope :sort_by_city, ->(order) { sort_by_column('city', order) }
+end
+
+private
+
+def order_normalizer(order)
+  order == 'descending' ? :desc : :asc
 end
 
 # == Schema Information

@@ -4,7 +4,13 @@ class ClientsController < ApplicationController
 
   # GET /clients
   def index
-    @clients = Client.sorted.page(params[:page])
+    @clients = Client.sorted
+
+    if params[:sort].present?
+      @clients = @clients.send("sort_by_#{sort_params[:column]}", sort_params[:order])
+    end
+
+    @clients = @clients.page(params[:page])
   end
 
   # GET /clients/new
@@ -55,5 +61,9 @@ class ClientsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def client_params
     params.require(:client).permit!
+  end
+
+  def sort_params
+    params.require(:sort).permit(:column, :order)
   end
 end

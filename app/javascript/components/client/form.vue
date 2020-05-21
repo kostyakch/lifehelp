@@ -99,7 +99,7 @@
         </el-form-item>
 
         <el-form-item label="Город" prop="city">
-          <el-input v-model="form.city" value="Ставрополь"></el-input>
+          <el-input v-model="form.city">Ставрополь</el-input>
         </el-form-item>
         <el-form-item label="Район" prop="area">
           <el-input v-model="form.area"></el-input>

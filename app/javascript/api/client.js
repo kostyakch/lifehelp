@@ -2,7 +2,7 @@ import api from './instance'
 
 const index = (params) =>
   api
-    .get(Routes.clients_path({ page: params.page, format: "json" }))
+    .get(Routes.clients_path({ ...params, ...{ format: "json"}}))
     .then(response => response.data)
 
 const create = (params) =>

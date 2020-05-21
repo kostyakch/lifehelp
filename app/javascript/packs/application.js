@@ -6,8 +6,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 // Import all the macro components of the application
 import * as instances from './instances'
+
 import api from '../api'
 Vue.prototype.$api = api;
+
+import moment from 'moment';
+Vue.prototype.$moment = moment;
 
 Vue.use(ElementUI, { locale })
 Vue.use(require('vue-moment'));

@@ -4,7 +4,7 @@
     <el-button type="primary" plain @click="newClient()" class="bt-add">Добавить</el-button>
 
     <SearchBox @callback="searchCallback" :query="this.$api.client" :collection="tableData" />
-    <ClientTable :tableData="tableData" />
+    <ClientTable :clients="tableData" />
     <Pagination
       @callback="paginationCallback"
       :query="this.$api.client"

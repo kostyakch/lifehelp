@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20">
-    <el-table :data="tableData" stripe style="width: 100%">
+    <el-table :data="tableData" stripe style="width: 100%" @sort-change="sortChange">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-row :gutter="20">
@@ -55,14 +55,13 @@
           </el-row>
         </template>
       </el-table-column>
-      <el-table-column prop="fio" sortable label="ФИО"></el-table-column>
-      <el-table-column prop="dob" sortable label="Дата рождения">
-        <template
-          slot-scope="props"
-        >{{ props.row.dob | moment("DD.MM.YYYY") }} ({{ years(props.row.dob) }})</template>
-      </el-table-column>
+      <el-table-column prop="fio" sortable="custom" label="ФИО"></el-table-column>
+      <el-table-column prop="dob" sortable="custom" label="Дата рождения" :formatter="dobFormatter"></el-table-column>
       <el-table-column prop="phone" label="Телефон"></el-table-column>
-      <el-table-column prop="city" sortable label="Город"></el-table-column>
+      <el-table-column prop="updated_at" sortable="custom" label="Дата изменения">
+        <template slot-scope="props">{{ props.row.updated_at | moment("DD.MM.YYYY") }}</template>
+      </el-table-column>
+      <el-table-column prop="city" sortable="custom" label="Город"></el-table-column>
       <el-table-column fixed="right" label="Действия" width="180">
         <template slot-scope="scope">
           <el-button
@@ -88,12 +87,30 @@
 export default {
   name: "ClientTable",
   props: {
-    tableData: Array
+    clients: Array
   },
   data() {
     return {
-      i18n: I18n
+      i18n: I18n,
+      sorted: false,
+      tmpData: this.clients
     };
+  },
+  computed: {
+    tableData: {
+      get: function() {
+        if (this.sorted) {
+          this.sorted = false;
+          this.tableData = this.clients;
+          return this.tmpData;
+        } else {
+          return this.clients;
+        }
+      },
+      set: function(data) {
+        return this.clients;
+      }
+    }
   },
   methods: {
     deleteRow(index, rows, id) {
@@ -113,6 +130,21 @@ export default {
       if (date === "") return;
       var now = new Date();
       return parseInt(now.toISOString()) - parseInt(date);
+    },
+    dobFormatter(row, column) {
+      if (row.dob === null) return "--";
+
+      return `${this.$moment(row.dob).format("DD.MM.YYYY")} (${this.years(
+        row.dob
+      )})`;
+    },
+    sortChange(row) {
+      this.$api.client
+        .index({ sort: { column: row.prop, order: row.order } })
+        .then(resp => {
+          this.sorted = true;
+          this.tmpData = resp;
+        });
     }
   }
 };
@@ -123,3 +155,4 @@ export default {
   margin-top: 20px;
 }
 </style>
+
