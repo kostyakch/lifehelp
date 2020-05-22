@@ -34,5 +34,7 @@ module Lifehelp
       generator.helper false
       generator.resource_controller :responders_controller
     end
+
+    config.eager_load_paths << Rails.root.join('lib')
   end
 end

@@ -34,8 +34,8 @@
             <el-form-item prop="phone">
               <el-input
                 v-model="form.phone"
-                placeholder="+7 (###) ###-####"
-                v-mask="'+# (###) ###-####'"
+                placeholder="8 (###) ###-####"
+                v-mask="'8|7 (###) ###-####'"
                 clearable
               ></el-input>
             </el-form-item>

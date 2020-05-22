@@ -12,7 +12,7 @@ class Client < ApplicationRecord
   enum source: %i[01_no_source 02_direct_call 03_call_center 04_volunteers
                   05_no_commercial_org 06_commercial_org]
 
-  validates :first_name, :last_name, uniqueness: { scope: %i[dob] }
+  validates :first_name, :last_name, uniqueness: { scope: %i[dob] }, if: -> { dob.present? }
   validates :phone, uniqueness: true, allow_blank: true
 
   scope :sorted, -> { order(last_name: :asc, first_name: :asc) }
