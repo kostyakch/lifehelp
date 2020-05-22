@@ -2,6 +2,8 @@
 
 module Abstract
   class Contract < Dry::Validation::Contract
+    Phonelib.default_country = 'RU'
+
     register_macro(:email_format) do
       next if value.blank?
 
