@@ -2,11 +2,23 @@
   <el-row>
     <h2>Оказанные услуги</h2>
 
-    <SearchBox
-      @callback="searchCallback"
-      :query="this.$api.client_service"
-      :collection="tableData"
-    />
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <SearchBox
+          @callback="searchCallback"
+          :query="this.$api.client_service"
+          :collection="tableData"
+        />
+      </el-col>
+      <el-col :span="10">
+        <FilterStartFinish
+          @callback="fdateCallback"
+          :query="this.$api.client_service"
+          :collection="tableData"
+        />
+      </el-col>
+    </el-row>
+
     <ClientTable :tableData="tableData" />
     <Pagination
       @callback="paginationCallback"
@@ -21,14 +33,15 @@
 import ClientTable from "./table.vue";
 import SearchBox from "../common/searchBox";
 import Pagination from "../common/pagination";
+import FilterStartFinish from "../common/filterStartFinish";
 
 export default {
-  components: { ClientTable, SearchBox, Pagination },
+  components: { ClientTable, SearchBox, Pagination, FilterStartFinish },
   props: {
     client_services: Array,
     pagination: Object
   },
-    data() {
+  data() {
     return {
       tableData: this.client_services,
       showPagination: true
@@ -40,6 +53,9 @@ export default {
       this.showPagination = resp.length === this.client_services.length;
     },
     paginationCallback(resp) {
+      this.tableData = resp;
+    },
+    fdateCallback(resp) {
       this.tableData = resp;
     }
   }

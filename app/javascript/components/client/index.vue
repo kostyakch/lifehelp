@@ -3,7 +3,11 @@
     <h2>Список клиентов</h2>
     <el-button type="primary" plain @click="newClient()" class="bt-add">Добавить</el-button>
 
-    <SearchBox @callback="searchCallback" :query="this.$api.client" :collection="tableData" />
+    <el-row>
+      <el-col :span="5">
+        <SearchBox @callback="searchCallback" :query="this.$api.client" :collection="tableData" />
+      </el-col>
+    </el-row>
     <ClientTable :clients="tableData" />
     <Pagination
       @callback="paginationCallback"

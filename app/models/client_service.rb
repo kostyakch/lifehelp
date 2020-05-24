@@ -19,6 +19,10 @@ class ClientService < ApplicationRecord
       CONCAT_WS(' ', performers.last_name, performers.first_name,
       performers.middle_name) ILIKE :q", q: "%#{query&.squish}%")
   }
+
+  scope :started, ->(date) { where('started_at >= ?', date) }
+  scope :finished, ->(date) { where('finished_at < ?', date) }
+  scope :filter_by_start_finish, ->(started, finished) { started(started).finished(finished) }
 end
 
 # == Schema Information
