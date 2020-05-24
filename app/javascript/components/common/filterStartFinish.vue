@@ -32,12 +32,15 @@ export default {
   methods: {
     dateChange(range) {
       if (range) {
-        this.query
-          .index({ filter: { started_at: range[0], finished_at: range[1] } })
-          .then(resp => {
-            this.$emit("callback", resp);
-          });
+        var filterQuery = {
+          filter: { started_at: range[0], finished_at: range[1] }
+        };
+        localStorage.lastQuery = JSON.stringify(filterQuery);
+        this.query.index(filterQuery).then(resp => {
+          this.$emit("callback", resp);
+        });
       } else {
+        localStorage.lastQuery = "{}";
         this.$emit("callback", this.tableData);
       }
     }

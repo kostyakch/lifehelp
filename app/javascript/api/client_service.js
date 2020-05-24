@@ -1,9 +1,10 @@
 import api from './instance'
 
-const index = (params) =>
-  api
-    .get(Routes.client_services_path({ ...params, ...{ format: "json" } }))
+const index = function (params) {
+  var lastQuery = localStorage.lastQuery ? JSON.parse(localStorage.lastQuery) : {}
+  return api.get(Routes.client_services_path({ ...params, ...lastQuery, ...{ format: "json" } }))
     .then(response => response.data)
+}
 
 const create = (params) =>
   api
