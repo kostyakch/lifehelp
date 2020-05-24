@@ -43,6 +43,9 @@ export default {
     paginationCallback(resp) {
       this.tableData = resp;
     }
+  },
+  mounted() {
+    localStorage.lastQuery = "{}";
   }
 };
 </script>

@@ -102,7 +102,7 @@
           <el-input v-model="form.city">Ставрополь</el-input>
         </el-form-item>
         <el-form-item label="Район" prop="area">
-          <el-input v-model="form.area"></el-input>
+          <el-input v-model.trim="form.area"></el-input>
         </el-form-item>
         <el-form-item label="Адрес" prop="address">
           <el-input type="textarea" v-model="form.address"></el-input>

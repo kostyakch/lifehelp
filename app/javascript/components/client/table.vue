@@ -61,6 +61,7 @@
       <el-table-column prop="updated_at" sortable="custom" label="Дата изменения">
         <template slot-scope="props">{{ props.row.updated_at | moment("DD.MM.YYYY") }}</template>
       </el-table-column>
+      <el-table-column prop="area" sortable="custom" label="Район"></el-table-column>
       <el-table-column prop="city" sortable="custom" label="Город"></el-table-column>
       <el-table-column fixed="right" label="Действия" width="180">
         <template slot-scope="scope">
@@ -139,12 +140,14 @@ export default {
       )})`;
     },
     sortChange(row) {
-      this.$api.client
-        .index({ sort: { column: row.prop, order: row.order } })
-        .then(resp => {
-          this.sorted = true;
-          this.tmpData = resp;
-        });
+      var sortQuery = { sort: { column: row.prop, order: row.order } };
+      if (row.order) localStorage.lastQuery = JSON.stringify(sortQuery);
+      else localStorage.lastQuery = "{}";
+
+      this.$api.client.index(sortQuery).then(resp => {
+        this.sorted = true;
+        this.tmpData = resp;
+      });
     }
   }
 };
