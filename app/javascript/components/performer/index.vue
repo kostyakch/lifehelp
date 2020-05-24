@@ -3,7 +3,11 @@
     <h2>Исполнители</h2>
     <el-button type="primary" plain @click="newRecord()" class="bt-add">Добавить</el-button>
 
-    <SearchBox @callback="searchCallback" :query="this.$api.performer" :collection="tableData" />
+    <el-row>
+      <el-col :span="5">
+        <SearchBox @callback="searchCallback" :query="this.$api.performer" :collection="tableData" />
+      </el-col>
+    </el-row>
     <PerformerTable :tableData="tableData" />
     <Pagination
       @callback="paginationCallback"

@@ -4,7 +4,15 @@ class ClientServicesController < ApplicationController
   # GET /client_services
   # GET /client_services.json
   def index
-    @client_services = ClientService.sorted.page(params[:page])
+    @client_services = ClientService.sorted
+
+    if params[:filter].present?
+      @client_services = @client_services.send('filter_by_start_finish',
+                                               filter_params[:started_at],
+                                               filter_params[:finished_at])
+    end
+
+    @client_services = @client_services.page(params[:page])
   end
 
   # GET /client_services/1
@@ -73,5 +81,9 @@ class ClientServicesController < ApplicationController
   def client_service_params
     params.require(:client_service)
           .permit(%i[status review started_at finished_at client_id service_id performer_id])
+  end
+
+  def filter_params
+    params.require(:filter).permit(:started_at, :finished_at)
   end
 end

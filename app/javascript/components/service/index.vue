@@ -3,7 +3,11 @@
     <h2>Справочник услуг</h2>
     <el-button type="primary" plain @click="newService()" class="bt-add">Добавить</el-button>
 
-    <SearchBox @callback="searchCallback" :query="this.$api.service" :collection="tableData" />
+    <el-row>
+      <el-col :span="5">
+        <SearchBox @callback="searchCallback" :query="this.$api.service" :collection="tableData" />
+      </el-col>
+    </el-row>
     <ServiceTable :tableData="tableData" />
     <Pagination
       @callback="paginationCallback"
