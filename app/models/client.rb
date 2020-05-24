@@ -19,7 +19,8 @@ class Client < ApplicationRecord
   scope :search_for, lambda { |query|
     where("CONCAT_WS(' ', clients.last_name, clients.first_name,
       clients.middle_name) ILIKE :q OR clients.city ILIKE :q
-      OR clients.phone::varchar ILIKE :q OR clients.dob::varchar ILIKE :q",
+      OR clients.phone::varchar ILIKE :q OR clients.dob::varchar ILIKE :q
+      OR clients.area ILIKE :q",
           q: "%#{query&.squish}%")
   }
 
@@ -29,6 +30,7 @@ class Client < ApplicationRecord
   scope :sort_by_dob, ->(order) { sort_by_column('dob', order) }
   scope :sort_by_updated_at, ->(order) { sort_by_column('updated_at', order) }
   scope :sort_by_city, ->(order) { sort_by_column('city', order) }
+  scope :sort_by_area, ->(order) { sort_by_column('area', order) }
 end
 
 private
