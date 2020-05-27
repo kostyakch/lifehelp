@@ -62,9 +62,11 @@ end
 #  source         :integer          default("01_no_source"), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  deleted_at     :datetime
 #
 # Indexes
 #
+#  index_clients_on_deleted_at                        (deleted_at)
 #  index_clients_on_first_name_and_last_name_and_dob  (first_name,last_name,dob) UNIQUE
 #  index_clients_on_phone                             (phone) UNIQUE
 #

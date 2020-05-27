@@ -24,4 +24,9 @@ end
 #  description    :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  deleted_at     :datetime
+#
+# Indexes
+#
+#  index_performers_on_deleted_at  (deleted_at)
 #

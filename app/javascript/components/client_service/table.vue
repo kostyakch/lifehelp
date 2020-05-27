@@ -31,12 +31,19 @@
 
       <el-table-column fixed="right" label="Действия" width="120">
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" circle @click="editRecord(scope.row.id)"></el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-edit"
+            circle
+            @click="editRecord(scope.row.id)"
+            v-if="!scope.row.deleted"
+          ></el-button>
           <el-button
             type="danger"
             icon="el-icon-delete"
             circle
             @click.native.prevent="deleteRow(scope.$index, tableData, scope.row.id)"
+            v-if="!scope.row.deleted"
           ></el-button>
         </template>
       </el-table-column>
