@@ -1,7 +1,7 @@
 class ClientService < ApplicationRecord
   belongs_to :client, foreign_key: 'client_id', with_deleted: true
   belongs_to :service
-  belongs_to :performer
+  belongs_to :performer, optional: true
 
   enum status: %i[01_started 02_in_work 03_completed]
 
