@@ -6,6 +6,7 @@ gem 'puma', '~> 3.12'
 gem 'rails', '6.0.0'
 
 ### AAA
+gem 'acts_as_paranoid'
 gem 'devise'
 gem 'dry-monads'
 gem 'dry-validation'

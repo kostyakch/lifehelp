@@ -34,10 +34,12 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  performer_id :uuid
+#  deleted_at   :datetime
 #
 # Indexes
 #
 #  index_client_services_on_client_id     (client_id)
+#  index_client_services_on_deleted_at    (deleted_at)
 #  index_client_services_on_performer_id  (performer_id)
 #  index_client_services_on_service_id    (service_id)
 #

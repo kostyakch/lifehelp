@@ -1,14 +1,14 @@
 class ClientService < ApplicationRecord
-  belongs_to :client
+  belongs_to :client, foreign_key: 'client_id', with_deleted: true
   belongs_to :service
-  belongs_to :performer, optional: true
+  belongs_to :performer
 
   enum status: %i[01_started 02_in_work 03_completed]
 
   scope :sorted, lambda {
                    includes(:client, :service, :performer)
-                     .reorder('client_services.started_at desc',
-                              'clients.last_name asc')
+                     .with_deleted
+                     .reorder('client_services.started_at desc', 'clients.last_name asc')
                  }
   scope :by_client, ->(client_id) { includes(:client).where(client_id: client_id) }
   scope :search_for, lambda { |query|
@@ -18,6 +18,7 @@ class ClientService < ApplicationRecord
       clients.middle_name) ILIKE :q OR services.title ILIKE :q OR
       CONCAT_WS(' ', performers.last_name, performers.first_name,
       performers.middle_name) ILIKE :q", q: "%#{query&.squish}%")
+      .with_deleted
   }
 
   scope :started, ->(date) { where('started_at >= ?', date) }
@@ -39,10 +40,12 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  performer_id :uuid
+#  deleted_at   :datetime
 #
 # Indexes
 #
 #  index_client_services_on_client_id     (client_id)
+#  index_client_services_on_deleted_at    (deleted_at)
 #  index_client_services_on_performer_id  (performer_id)
 #  index_client_services_on_service_id    (service_id)
 #
